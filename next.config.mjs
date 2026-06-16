@@ -7,7 +7,14 @@ const nextConfig = {
         hostname: 'image.thum.io',
         pathname: '/get/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+      },
     ],
+  },
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react', 'react-icons'],
   },
 };
 

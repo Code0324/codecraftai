@@ -27,7 +27,7 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <LogoSVG className="w-6 h-6 text-[#4F8EF7]" />
+          <LogoSVG size={24} showText={false} />
           <div className="heading-font font-bold text-lg text-white">
             CodeCraft<span style={{ opacity: 0.6 }}>AI</span>
           </div>

@@ -33,11 +33,11 @@ interface SVGLine {
 
 // ─── Data ─────────────────────────────────────────────────────
 const teamMembers: TeamMember[] = [
-  { name: 'Ummay Kulsoom', role: 'CEO & Founder',     accent: '#00d4ff', image: '/images/ummay-profile.png',  initials: 'UK' },
-  { name: 'Ms Laiqa',      role: 'Graphic Designer',  accent: '#ff55bb', image: '/images/team/designer.jpg', initials: 'ML' },
-  { name: 'Ms Sumira',     role: 'Content Writer',    accent: '#c050ff', image: '/images/team/writer.jpg',   initials: 'MS' },
-  { name: 'Mr Ameer',      role: 'Marketing Manager', accent: '#ffc000', image: '/images/team/marketing.jpg',initials: 'MA' },
-  { name: 'Mr Bilal',      role: 'SEO Expert',        accent: '#00ffaa', image: '/images/team/seo.jpg',      initials: 'MB' },
+  { name: 'Ummay Kulsoom', role: 'CEO & Founder',     accent: '#00d4ff', image: '/images/ummay-profile.png',                   initials: 'UK' },
+  { name: 'Ms Laiqa',      role: 'Graphic Designer',  accent: '#ff55bb', image: '/images/our%20team/Ms%20Laiqa.png',           initials: 'ML' },
+  { name: 'Ms Sumira',     role: 'Content Writer',    accent: '#c050ff', image: '/images/our%20team/Ms%20Sumira.png',          initials: 'MS' },
+  { name: 'Mr Ameer',      role: 'Marketing Manager', accent: '#ffc000', image: '/images/our%20team/Mr%20Ameer.png',           initials: 'MA' },
+  { name: 'Mr Bilal',      role: 'SEO Expert',        accent: '#00ffaa', image: '/images/our%20team/Mr%20Bilal.png',           initials: 'MB' },
 ];
 
 const aiTools: AITool[] = [

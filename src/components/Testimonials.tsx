@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const testimonials = [
@@ -59,7 +60,7 @@ export default function Testimonials() {
               <div className="text-[#4F8EF7] text-4xl font-serif mb-4">"</div>
               <p className="text-slate-300 mb-6 text-lg leading-relaxed">{item.quote}</p>
               <div className="flex items-center gap-4">
-                <img src={item.avatar} alt={item.author} className="w-12 h-12 rounded-full object-cover" />
+                <Image src={item.avatar} alt={item.author} width={48} height={48} className="rounded-full object-cover" unoptimized />
                 <div>
                   <div className="text-white font-bold text-sm heading-font">{item.author}</div>
                   <div className="text-slate-500 text-xs">{item.role}</div>
