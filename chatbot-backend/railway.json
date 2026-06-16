@@ -1,0 +1,7 @@
+{
+  "projectId": "todo-app-backend",
+  "deployments": {
+    "autoDeploy": true,
+    "branch": "phase-II"
+  }
+}

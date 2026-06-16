@@ -1,0 +1,321 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --primary-blue: #4F8EF7;
+  --deep-purple: #7C3AED;
+  --accent-cyan: #06B6D4;
+  --dark-bg: #050816;
+  --card-bg: #0D1117;
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --glow-blue: rgba(79, 142, 247, 0.6);
+  --glow-purple: rgba(124, 58, 237, 0.6);
+}
+
+/* ─── Base Reset ────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scroll-padding-top: 72px;
+}
+
+body {
+  background: #050816;
+  background-image: radial-gradient(ellipse at top, #0D1B4B 0%, #050816 60%);
+  /* background-attachment: fixed removed — causes constant repaints on mobile */
+  color: var(--text-primary);
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050816; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4F8EF7, #7C3AED);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #60A5FA, #A78BFA);
+}
+
+/* ─── CSS Grid Overlay ──────────────────────────────────────── */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── Glassmorphism Card ────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow:
+    0 0 40px rgba(79, 142, 247, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+  border-color: rgba(79, 142, 247, 0.3);
+  box-shadow:
+    0 0 60px rgba(79, 142, 247, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Glossy Button ─────────────────────────────────────────── */
+.glossy-btn {
+  background: linear-gradient(135deg, #4F8EF7, #7C3AED);
+  border-radius: 50px;
+  padding: 12px 28px;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.glossy-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 2.5s infinite;
+}
+
+.glossy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(79, 142, 247, 0.4);
+}
+
+/* ─── Ghost Button ──────────────────────────────────────────── */
+.ghost-btn {
+  background: transparent;
+  border: 1px solid rgba(79, 142, 247, 0.5);
+  border-radius: 50px;
+  padding: 12px 28px;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.ghost-btn:hover {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 20px rgba(79, 142, 247, 0.3);
+  background: rgba(79, 142, 247, 0.08);
+}
+
+/* ─── Text Effects ──────────────────────────────────────────── */
+.text-glow { text-shadow: 0 0 40px rgba(79, 142, 247, 0.6); }
+
+.text-gradient {
+  background: linear-gradient(135deg, #60A5FA, #A78BFA, #06B6D4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heading-font { font-family: 'Outfit', sans-serif; }
+
+/* ─── Glassmorphism Input ───────────────────────────────────── */
+.glass-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: var(--text-primary);
+  padding: 14px 18px;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.glass-input::placeholder { color: var(--text-secondary); }
+.glass-input:focus {
+  border-color: rgba(79, 142, 247, 0.5);
+  box-shadow: 0 0 20px rgba(79, 142, 247, 0.15);
+}
+
+/* ─── Section Underline ─────────────────────────────────────── */
+.section-underline {
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, #4F8EF7, #7C3AED);
+  border-radius: 2px;
+  margin: 16px auto 20px;
+}
+
+/* ─── Glow Ring ─────────────────────────────────────────────── */
+.glow-ring { position: relative; }
+
+.glow-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4F8EF7, #7C3AED);
+  z-index: -1;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.3s;
+}
+
+.glow-ring:hover::after { opacity: 1; }
+
+/* ─── Navbar ────────────────────────────────────────────────── */
+.navbar-scrolled {
+  background: rgba(5, 8, 22, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ─── Tag Pills ─────────────────────────────────────────────── */
+.tag-pill {
+  background: rgba(79, 142, 247, 0.1);
+  border: 1px solid rgba(79, 142, 247, 0.2);
+  border-radius: 50px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: #93C5FD;
+  font-weight: 500;
+}
+
+/* ─── Tech Badge ────────────────────────────────────────────── */
+.tech-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* ─── Pricing Recommended ───────────────────────────────────── */
+.pricing-recommended {
+  border-color: rgba(79, 142, 247, 0.45) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(79, 142, 247, 0.1),
+    rgba(124, 58, 237, 0.07)
+  ) !important;
+  transform: scale(1.05);
+  box-shadow:
+    0 0 60px rgba(79, 142, 247, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ─── Social Icon ───────────────────────────────────────────── */
+.social-icon {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s, filter 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social-icon:hover { transform: translateY(-2px); }
+
+/* ─── Animations ────────────────────────────────────────────── */
+@keyframes shimmer { to { left: 120%; } }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(79, 142, 247, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(79, 142, 247, 0.7); }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes rotate-border {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-bounce-down { animation: bounce-down 1.5s ease-in-out infinite; }
+
+@keyframes wa-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.15); opacity: 0.08; }
+}
+
+/* ── Marquee animation ── */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes testiScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Mobile Performance ────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Disable expensive backdrop-filter on low-power devices */
+  .glass-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Hide heavy grid overlay on mobile */
+  .grid-overlay { display: none; }
+
+  /* Reduce float animation count — only animate on hover */
+  .animate-float { animation: none; }
+
+  /* Reduce section padding on mobile */
+  section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+}
+
+/* ─── Responsive Typography ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .heading-font { letter-spacing: -0.01em; }
+}
+
+/* ─── Touch devices: remove hover transforms ────────────────── */
+@media (hover: none) {
+  .glass-card:hover { transform: none; border-color: rgba(255,255,255,0.08); }
+  .glossy-btn:hover { transform: none; }
+}
