@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="512" viewBox="0 0 1900 512" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap');
+    </style>
+    <linearGradient id="cBody" x1="106" y1="106" x2="406" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="0.45" stop-color="#4F8EF7"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="cEdge" x1="106" y1="106" x2="398" y2="302" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#A5F3FC" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#4F8EF7" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="cInner" x1="345" y1="226" x2="106" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#67E8F9" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#4F8EF7" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#7C3AED" stop-opacity="0.65"/>
+    </linearGradient>
+    <linearGradient id="cSheen" x1="106" y1="106" x2="345" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.3"/>
+      <stop offset="0.38" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="0.62" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bGrad" x1="353" y1="222" x2="447" y2="290" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7DF9FF"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="wGrad" x1="0" y1="0" x2="1300" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </linearGradient>
+    <filter id="bloom" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="16" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="wGlow" x="-10%" y="-40%" width="120%" height="180%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <g>
+    <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="#22D3EE" opacity="0.35" filter="url(#bloom)"/>
+    <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="#7C3AED" opacity="0.2" filter="url(#bloom)" transform="translate(8 14)"/>
+
+    <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="url(#cBody)"/>
+    <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="none" stroke="#071126" stroke-opacity="0.28" stroke-width="1.5"/>
+    <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65" fill="none" stroke="url(#cEdge)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M345.40 226.95 A94 94 0 1 0 345.40 285.05" fill="none" stroke="url(#cInner)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="url(#cSheen)"/>
+
+    <g stroke="url(#bGrad)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
+      <path d="M353 290 L391 256 L353 222"/>
+      <path d="M399 222 L437 290"/>
+      <path d="M411 222 L447 256 M411 290 L447 256"/>
+    </g>
+
+    <g filter="url(#softGlow)">
+      <rect x="121" y="233" width="15" height="15" rx="3.5" fill="#22D3EE" opacity="0.95"/>
+      <rect x="105" y="255" width="13" height="13" rx="3" fill="#4F8EF7" opacity="0.85"/>
+      <rect x="91" y="230" width="12" height="12" rx="3" fill="#22D3EE" opacity="0.72"/>
+      <rect x="79" y="252" width="10" height="10" rx="2.5" fill="#7C3AED" opacity="0.6"/>
+      <rect x="67" y="236" width="9" height="9" rx="2.5" fill="#4F8EF7" opacity="0.48"/>
+      <rect x="55" y="256" width="8" height="8" rx="2" fill="#22D3EE" opacity="0.36"/>
+      <rect x="44" y="240" width="7" height="7" rx="2" fill="#7C3AED" opacity="0.26"/>
+      <rect x="33" y="252" width="5.5" height="5.5" rx="1.5" fill="#4F8EF7" opacity="0.16"/>
+      <rect x="24" y="242" width="4.5" height="4.5" rx="1.5" fill="#22D3EE" opacity="0.1"/>
+    </g>
+  </g>
+
+  <text
+    x="596"
+    y="320"
+    fill="url(#wGrad)"
+    filter="url(#wGlow)"
+    font-family="'Outfit','Space Grotesk',system-ui,sans-serif"
+    font-weight="600"
+    font-size="184"
+    letter-spacing="3"
+  >CodeCraftAI</text>
+</svg>

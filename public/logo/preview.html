@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeCraftAI — Brand Mark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #071126; --cyan: #22D3EE; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--navy); color: #E6EDF7; font-family: 'Outfit', system-ui, sans-serif; min-height: 100vh; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 56px 28px 88px; }
+  header { text-align: center; margin-bottom: 52px; }
+  header .tag { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--cyan); font-weight: 600; }
+  header h1 { font-size: clamp(34px, 5vw, 54px); font-weight: 700; margin-top: 12px; }
+  header p { color: #8CA3C8; margin-top: 12px; font-size: 15px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+  .tile { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden; backdrop-filter: blur(12px); }
+  .tile .stage { min-height: 260px; display: grid; place-items: center; padding: 36px 24px; background: radial-gradient(ellipse at 50% 30%, rgba(34,211,238,0.05), transparent 65%); overflow: hidden; }
+  .tile.light .stage { background: #F4F7FB; }
+  .tile .stage img, .tile .stage svg { max-width: 100%; height: auto; }
+  .tile .stage svg.stacked { height: 230px; width: auto; }
+  .tile .stage svg.horizontal { height: 150px; width: auto; }
+  .tile .meta { padding: 18px 22px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .tile .meta h3 { font-size: 15px; font-weight: 600; color: #fff; }
+  .tile .meta p { font-size: 12.5px; color: #8CA3C8; margin-top: 4px; }
+  .tile .actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  button { appearance: none; border: 1px solid rgba(34,211,238,0.35); background: rgba(34,211,238,0.08); color: #D9F4FB; font-family: inherit; font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer; transition: all .2s; }
+  button:hover { background: rgba(34,211,238,0.16); border-color: rgba(34,211,238,0.6); }
+  .sizes { display: flex; align-items: flex-end; gap: 18px; margin-top: 44px; justify-content: center; flex-wrap: wrap; }
+  .size-chip { display: flex; flex-direction: column; align-items: center; gap: 8px; color: #8CA3C8; font-size: 11px; }
+  .size-chip > span { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; display: grid; place-items: center; }
+  footer { text-align: center; margin-top: 60px; color: #5E7699; font-size: 12.5px; }
+  .note { color: #8CA3C8; font-size: 12px; margin-top: 24px; text-align: center; max-width: 720px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag">Brand System</div>
+    <h1>CodeCraftAI <span style="color:var(--cyan)">●</span></h1>
+    <p>Premium acrylic brand mark — C · &lt;/&gt; · pixel dissolve</p>
+  </header>
+
+  <div class="grid" id="tiles"></div>
+
+  <div class="sizes">
+    <div class="size-chip"><span style="width:24px;height:24px" data-icon></span>24px</div>
+    <div class="size-chip"><span style="width:32px;height:32px" data-icon></span>32px</div>
+    <div class="size-chip"><span style="width:48px;height:48px" data-icon></span>48px</div>
+    <div class="size-chip"><span style="width:64px;height:64px" data-icon></span>64px</div>
+    <div class="size-chip"><span style="width:128px;height:128px" data-icon></span>128px</div>
+  </div>
+
+  <p class="note">
+    Tip: click <b>Export PNG 1024</b> to download 1024×1024 PNG files of any variant.
+    SVG source files live in <b>/logo</b>. The wordmark uses <b>Outfit</b> — a geometric sans
+    matching SF Pro / General Sans proportions.
+  </p>
+
+  <footer>© CodeCraftAI — designed for navbar, hero, GitHub, LinkedIn, YouTube, favicon &amp; app icons</footer>
+</div>
+
+<script>
+/* ── Shared SVG building blocks ───────────────────────────── */
+const ICON_CORE = `
+<g>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="#22D3EE" opacity="0.35" filter="url(#bloom)"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="#7C3AED" opacity="0.2" filter="url(#bloom)" transform="translate(8 14)"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="url(#cBody)"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="none" stroke="#071126" stroke-opacity="0.28" stroke-width="1.5"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65" fill="none" stroke="url(#cEdge)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M345.40 226.95 A94 94 0 1 0 345.40 285.05" fill="none" stroke="url(#cInner)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="url(#cSheen)"/>
+  <g stroke="url(#bGrad)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
+    <path d="M353 290 L391 256 L353 222"/>
+    <path d="M399 222 L437 290"/>
+    <path d="M411 222 L447 256 M411 290 L447 256"/>
+  </g>
+  <g filter="url(#softGlow)">
+    <rect x="121" y="233" width="15" height="15" rx="3.5" fill="#22D3EE" opacity="0.95"/>
+    <rect x="105" y="255" width="13" height="13" rx="3" fill="#4F8EF7" opacity="0.85"/>
+    <rect x="91" y="230" width="12" height="12" rx="3" fill="#22D3EE" opacity="0.72"/>
+    <rect x="79" y="252" width="10" height="10" rx="2.5" fill="#7C3AED" opacity="0.6"/>
+    <rect x="67" y="236" width="9" height="9" rx="2.5" fill="#4F8EF7" opacity="0.48"/>
+    <rect x="55" y="256" width="8" height="8" rx="2" fill="#22D3EE" opacity="0.36"/>
+    <rect x="44" y="240" width="7" height="7" rx="2" fill="#7C3AED" opacity="0.26"/>
+    <rect x="33" y="252" width="5.5" height="5.5" rx="1.5" fill="#4F8EF7" opacity="0.16"/>
+    <rect x="24" y="242" width="4.5" height="4.5" rx="1.5" fill="#22D3EE" opacity="0.1"/>
+  </g>
+</g>`;
+
+const DEFS = `
+<defs>
+  <linearGradient id="cBody" x1="106" y1="106" x2="406" y2="400" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#22D3EE"/><stop offset="0.45" stop-color="#4F8EF7"/><stop offset="1" stop-color="#7C3AED"/>
+  </linearGradient>
+  <linearGradient id="cEdge" x1="106" y1="106" x2="398" y2="302" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/><stop offset="0.5" stop-color="#A5F3FC" stop-opacity="0.6"/><stop offset="1" stop-color="#4F8EF7" stop-opacity="0.25"/>
+  </linearGradient>
+  <linearGradient id="cInner" x1="345" y1="226" x2="106" y2="256" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#67E8F9" stop-opacity="0.9"/><stop offset="0.6" stop-color="#4F8EF7" stop-opacity="0.45"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0.65"/>
+  </linearGradient>
+  <linearGradient id="cSheen" x1="106" y1="106" x2="345" y2="400" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.3"/><stop offset="0.38" stop-color="#FFFFFF" stop-opacity="0.08"/><stop offset="0.62" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="bGrad" x1="353" y1="222" x2="447" y2="290" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#7DF9FF"/><stop offset="1" stop-color="#38BDF8"/>
+  </linearGradient>
+  <linearGradient id="wGrad" x1="0" y1="0" x2="1300" y2="0" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7DD3FC"/>
+  </linearGradient>
+  <filter id="bloom" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="16" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>`;
+
+const svg = (w, h, inner) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none">${inner}</svg>`;
+
+const iconSvg = () => svg(512, 512, DEFS + ICON_CORE);
+
+const stackedSvg = () => svg(1024, 1024,
+  `<rect width="1024" height="1024" fill="#071126"/>
+   ${DEFS}
+   <radialGradient id="bgGlow" cx="50%" cy="40%" r="62%"><stop offset="0%" stop-color="#123156" stop-opacity="0.55"/><stop offset="100%" stop-color="#071126" stop-opacity="0"/></radialGradient>
+   <rect width="1024" height="1024" fill="url(#bgGlow)"/>
+   <g transform="translate(102 108) scale(1.6)">${ICON_CORE}</g>
+   <text x="512" y="886" text-anchor="middle" fill="url(#wGrad)" font-family="Outfit,'Space Grotesk',system-ui,sans-serif" font-weight="600" font-size="84" letter-spacing="4">CodeCraftAI</text>`);
+
+const horizontalSvg = () => svg(1900, 512,
+  `${DEFS}
+   ${ICON_CORE}
+   <text x="596" y="320" fill="url(#wGrad)" font-family="Outfit,'Space Grotesk',system-ui,sans-serif" font-weight="600" font-size="184" letter-spacing="3">CodeCraftAI</text>`);
+
+/* ── Mono icon cores ─────────────────────────────────────── */
+const MONO_CORE = (color, sheen) => `
+<g>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="${color}"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65 L345.40 226.95 A94 94 0 1 0 345.40 285.05 Z" fill="${sheen}"/>
+  <path d="M398.66 302.35 A150 150 0 1 1 398.66 209.65" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+  <g stroke="${color}" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M353 290 L391 256 L353 222"/><path d="M399 222 L437 290"/>
+    <path d="M411 222 L447 256 M411 290 L447 256"/>
+  </g>
+  <g fill="${color}">
+    <rect x="121" y="233" width="15" height="15" rx="3.5" opacity="0.95"/>
+    <rect x="105" y="255" width="13" height="13" rx="3" opacity="0.85"/>
+    <rect x="91" y="230" width="12" height="12" rx="3" opacity="0.7"/>
+    <rect x="79" y="252" width="10" height="10" rx="2.5" opacity="0.58"/>
+    <rect x="67" y="236" width="9" height="9" rx="2.5" opacity="0.46"/>
+    <rect x="55" y="256" width="8" height="8" rx="2" opacity="0.35"/>
+    <rect x="44" y="240" width="7" height="7" rx="2" opacity="0.25"/>
+    <rect x="33" y="252" width="5.5" height="5.5" rx="1.5" opacity="0.16"/>
+    <rect x="24" y="242" width="4.5" height="4.5" rx="1.5" opacity="0.1"/>
+  </g>
+</g>`;
+
+const monoDefs = (sheenColor, sheenOpacity) =>
+  `<defs><linearGradient id="sh" x1="106" y1="106" x2="345" y2="400" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${sheenColor}" stop-opacity="${sheenOpacity}"/><stop offset="0.5" stop-color="${sheenColor}" stop-opacity="0"/></linearGradient></defs>`;
+
+const whiteSvg = () => svg(512, 512, monoDefs('#FFFFFF', 0.5) + MONO_CORE('#FFFFFF', 'url(#sh)'));
+const blackSvg = () => svg(512, 512, monoDefs('#FFFFFF', 0.35) + MONO_CORE('#0B1220', 'url(#sh)'));
+
+/* ── Tiles ───────────────────────────────────────────────── */
+const tiles = [
+  { title: 'Primary — Full Logo', desc: 'Stacked icon + wordmark on brand navy · 1024×1024', inline: stackedSvg, cls: 'stacked', key: 'codecraftai-stacked' },
+  { title: 'Icon', desc: 'Brand mark only · transparent · 512×512', preview: iconSvg, key: 'codecraftai-icon' },
+  { title: 'Horizontal', desc: 'Icon + wordmark lockup · transparent', inline: horizontalSvg, cls: 'horizontal', key: 'codecraftai-horizontal' },
+  { title: 'White — Monochrome', desc: 'For dark surfaces · transparent', preview: whiteSvg, key: 'codecraftai-white' },
+  { title: 'Black — Monochrome', desc: 'For light surfaces · transparent', preview: blackSvg, key: 'codecraftai-black', light: true },
+];
+
+/* ── Canvas PNG export ───────────────────────────────────── */
+function drawIcon(ctx, svgStr, size, x, y) {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' }));
+    const img = new Image();
+    img.onload = () => { ctx.drawImage(img, x, y, size, size); URL.revokeObjectURL(url); resolve(); };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+    img.src = url;
+  });
+}
+
+function wordmark(ctx, x, baseline, size, align, glowColor) {
+  ctx.font = `600 ${size}px Outfit, 'Space Grotesk', system-ui, sans-serif`;
+  ctx.textAlign = align;
+  const g = ctx.createLinearGradient(0, 0, ctx.canvas.width * 2, 0);
+  g.addColorStop(0, '#FFFFFF');
+  g.addColorStop(1, '#7DD3FC');
+  ctx.fillStyle = g;
+  if (glowColor) { ctx.shadowColor = glowColor; ctx.shadowBlur = 18; }
+  ctx.fillText('CodeCraftAI', x, baseline);
+  ctx.shadowBlur = 0;
+}
+
+async function exportTile(tile) {
+  const S = 1024;
+  if (tile.key === 'codecraftai-horizontal') {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1900; canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    await drawIcon(ctx, iconSvg(), 512, 0, 0);
+    wordmark(ctx, 596, 320, 184, 'left', 'rgba(125,211,252,0.35)');
+    savePng(canvas, `${tile.key}-1024.png`);
+    return;
+  }
+  const canvas = document.createElement('canvas');
+  canvas.width = S; canvas.height = S;
+  const ctx = canvas.getContext('2d');
+
+  if (tile.key === 'codecraftai-stacked') {
+    ctx.fillStyle = '#071126';
+    ctx.fillRect(0, 0, S, S);
+    await drawIcon(ctx, iconSvg(), 820, 102, 60);
+    wordmark(ctx, S / 2, 880, 84, 'center', 'rgba(125,211,252,0.3)');
+  } else if (tile.key === 'codecraftai-white' || tile.key === 'codecraftai-black') {
+    const mono = tile.key === 'codecraftai-white' ? whiteSvg() : blackSvg();
+    const color = tile.key === 'codecraftai-white' ? '#FFFFFF' : '#0B1220';
+    ctx.font = '600 84px Outfit, "Space Grotesk", system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    if (tile.key === 'codecraftai-white') { ctx.shadowColor = 'rgba(255,255,255,0.3)'; ctx.shadowBlur = 16; }
+    ctx.fillStyle = color;
+    ctx.fillText('CodeCraftAI', S / 2, 880);
+    ctx.shadowBlur = 0;
+    await drawIcon(ctx, mono, 820, 102, 60);
+  } else {
+    await drawIcon(ctx, iconSvg(), S, 0, 0);
+  }
+  savePng(canvas, `${tile.key}-1024.png`);
+}
+
+function savePng(canvas, name) {
+  canvas.toBlob((b) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 500);
+  }, 'image/png');
+}
+
+function downloadSvg(tile) {
+  const str = tile.inline ? tile.inline() : tile.preview();
+  const blob = new Blob([str], { type: 'image/svg+xml;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${tile.key}.svg`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 500);
+}
+
+/* ── Render tiles ────────────────────────────────────────── */
+const grid = document.getElementById('tiles');
+tiles.forEach((tile) => {
+  const el = document.createElement('div');
+  el.className = 'tile' + (tile.light ? ' light' : '');
+  const stage = document.createElement('div');
+  stage.className = 'stage';
+  if (tile.inline) {
+    const holder = document.createElement('div');
+    holder.innerHTML = tile.inline();
+    const s = holder.querySelector('svg');
+    s.classList.add(tile.cls);
+    stage.appendChild(s);
+  } else {
+    const img = new Image();
+    img.style.maxHeight = '210px';
+    img.alt = tile.title;
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(tile.preview());
+    stage.appendChild(img);
+  }
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  meta.innerHTML = `<h3>${tile.title}</h3><p>${tile.desc}</p>`;
+  const actions = document.createElement('div');
+  actions.className = 'actions';
+  const png = document.createElement('button');
+  png.textContent = 'Export PNG 1024';
+  png.addEventListener('click', () => exportTile(tile));
+  const svgBtn = document.createElement('button');
+  svgBtn.textContent = 'Download SVG';
+  svgBtn.addEventListener('click', () => downloadSvg(tile));
+  actions.appendChild(png);
+  actions.appendChild(svgBtn);
+  meta.appendChild(actions);
+  el.appendChild(stage);
+  el.appendChild(meta);
+  grid.appendChild(el);
+});
+
+/* ── Sizes row ───────────────────────────────────────────── */
+document.querySelectorAll('[data-icon]').forEach((chip) => { chip.innerHTML = iconSvg(); });
+
+(async () => { try { await document.fonts.ready; } catch (e) { /* ignore */ } })();
+</script>
+</body>
+</html>

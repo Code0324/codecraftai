@@ -1,0 +1,30 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGradient)"/>
+
+  <!-- Circle background for avatar area -->
+  <circle cx="200" cy="200" r="150" fill="#ffffff" opacity="0.95"/>
+
+  <!-- Decorative circle outline -->
+  <circle cx="200" cy="200" r="150" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.3"/>
+
+  <!-- Avatar initials placeholder -->
+  <text x="200" y="220" font-family="Arial, sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="url(#accentGradient)">UK</text>
+
+  <!-- Decorative elements -->
+  <circle cx="80" cy="80" r="15" fill="#ffffff" opacity="0.7"/>
+  <circle cx="320" cy="80" r="10" fill="#ffffff" opacity="0.5"/>
+  <circle cx="80" cy="320" r="12" fill="#ffffff" opacity="0.6"/>
+  <circle cx="320" cy="320" r="8" fill="#ffffff" opacity="0.4"/>
+</svg>
