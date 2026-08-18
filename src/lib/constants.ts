@@ -1,5 +1,4 @@
-import { Smartphone, Bot, Settings } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+
 
 /* ─── Nav Links ─────────────────────────────────────────────── */
 export interface NavLink {
@@ -18,38 +17,23 @@ export const navLinks: NavLink[] = [
 
 /* ─── Services ──────────────────────────────────────────────── */
 export interface Service {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  gradient: string;
   image: string;
+  title: string;
 }
 
 export const services: Service[] = [
-  {
-    icon: Smartphone,
-    title: 'App Creation',
-    description:
-      'We design and build high-performance web and mobile applications powered by AI. From concept to deployment, every line of code is crafted for scale, speed, and seamless user experience.',
-    gradient: 'from-blue-500 to-cyan-500',
-    image: '/images/services/saas-ai.png',
-  },
-  {
-    icon: Bot,
-    title: 'AI Chatbots',
-    description:
-      'Deploy intelligent conversational agents that understand context, learn from interactions, and automate customer engagement 24/7 — integrated with your existing platforms.',
-    gradient: 'from-purple-500 to-pink-500',
-    image: '/images/services/chatbot.png',
-  },
-  {
-    icon: Settings,
-    title: 'Automation',
-    description:
-      'Eliminate repetitive workflows with AI-driven automation pipelines. We connect your tools, automate your processes, and free your team to focus on what matters most.',
-    gradient: 'from-cyan-500 to-blue-600',
-    image: '/images/services/ai-automation.png',
-  },
+  { image: '/images/services/AI Agent.png',    title: 'AI Agents' },
+  { image: '/images/services/chatbot.png',             title: 'AI Chatbots' },
+  { image: '/images/services/ai-automation.jfif',       title: 'Automation' },
+  { image: '/images/services/ECommerce.png',           title: 'E-Commerce' },
+  { image: '/images/services/mob-app.jfif',             title: 'Mobile Apps' },
+  { image: '/images/services/custom-dashboard.jfif',    title: 'Custom Dashboard' },
+  { image: '/images/services/crm.png',                 title: 'CRM' },
+  { image: '/images/services/n8n-automation.png',      title: 'n8n Automation' },
+  { image: '/images/services/portfolio.jfif',           title: 'Portfolio' },
+  { image: '/images/services/saas-ai.png',             title: 'SaaS AI' },
+  { image: '/images/services/telegram-bot.png',        title: 'Telegram Bot' },
+  { image: '/images/services/uiux.jfif',                title: 'UI/UX Design' },
 ];
 
 /* ─── Project Categories ────────────────────────────────────── */
@@ -244,35 +228,22 @@ export const projects: Project[] = [
 export interface TeamMember {
   name: string;
   role: string;
-  initials: string;
-  gradient: string;
+  image: string;
+  size: 'sm' | 'md' | 'lg';
+  position: { top: string; left: string };
 }
 
 export const team: TeamMember[] = [
-  {
-    name: 'Chirat de Architect',
-    role: 'Lead Python Developer',
-    initials: 'CA',
-    gradient: 'from-blue-500 to-purple-600',
-  },
-  {
-    name: 'Nandesh Cashier',
-    role: 'AI Solutions Engineer',
-    initials: 'NC',
-    gradient: 'from-purple-500 to-pink-600',
-  },
-  {
-    name: 'Aiden Reyes',
-    role: 'Full Stack Developer',
-    initials: 'AR',
-    gradient: 'from-cyan-500 to-blue-600',
-  },
-  {
-    name: 'Mia Patel',
-    role: 'UI/UX Designer',
-    initials: 'MP',
-    gradient: 'from-emerald-500 to-cyan-600',
-  },
+  { name: 'Ummay Kulsoom', role: 'CEO & Founder', image: '/images/our team/Ummay Kulsoom — CEO & Founder.png', size: 'lg', position: { top: '5%', left: '5%' } },
+  { name: 'Ms Laiqa', role: 'Graphic Designer', image: '/images/our team/Ms Laiqa.png', size: 'md', position: { top: '25%', left: '80%' } },
+  { name: 'Ms Sumira', role: 'Content Writer', image: '/images/our team/Ms Sumira.png', size: 'sm', position: { top: '55%', left: '2%' } },
+  { name: 'Mr Ameer', role: 'Marketing Manager', image: '/images/our team/Mr Ameer.png', size: 'md', position: { top: '65%', left: '72%' } },
+  { name: 'Mr Bilal', role: 'SEO Expert', image: '/images/our team/Mr Bilal.png', size: 'sm', position: { top: '10%', left: '72%' } },
+  { name: 'Frontend Developer', role: 'React & Next.js Expert', image: '/images/our team/AI Team/Frontendd Developer.png', size: 'md', position: { top: '40%', left: '15%' } },
+  { name: 'Backend Developer', role: 'API & Database Engineer', image: '/images/our team/AI Team/Backend Developer.png', size: 'sm', position: { top: '75%', left: '40%' } },
+  { name: 'UI/UX Designer', role: 'User Experience Designer', image: '/images/our team/AI Team/UI UX Designer.png', size: 'md', position: { top: '15%', left: '45%' } },
+  { name: 'SEO Specialist', role: 'Search Engine Optimizer', image: '/images/our team/AI Team/SEO Expert.png', size: 'sm', position: { top: '50%', left: '55%' } },
+  { name: 'Creative Lead', role: 'Design & Brand Strategist', image: '/images/our team/AI Team/Graphic Designer.png', size: 'lg', position: { top: '80%', left: '10%' } },
 ];
 
 /* ─── Pricing ───────────────────────────────────────────────── */

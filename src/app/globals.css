@@ -79,60 +79,88 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* ─── Glossy Button ─────────────────────────────────────────── */
-.glossy-btn {
-  background: linear-gradient(135deg, #4F8EF7, #7C3AED);
-  border-radius: 50px;
-  padding: 12px 28px;
-  position: relative;
-  overflow: hidden;
-  font-weight: 600;
+/* ─── Primary Button (black bg) ─────────────────────────────── */
+.btn-primary {
+  background: #000;
   color: #fff;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  font-family: 'Inter', sans-serif;
-}
-
-.glossy-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-  animation: shimmer 2.5s infinite;
-}
-
-.glossy-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(79, 142, 247, 0.4);
-}
-
-/* ─── Ghost Button ──────────────────────────────────────────── */
-.ghost-btn {
-  background: transparent;
-  border: 1px solid rgba(79, 142, 247, 0.5);
-  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 9999px;
   padding: 12px 28px;
-  color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.ghost-btn:hover {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 20px rgba(79, 142, 247, 0.3);
-  background: rgba(79, 142, 247, 0.08);
+.btn-primary:hover {
+  background: #1a1a1a;
+  border-color: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ─── Ghost / Secondary Button ──────────────────────────────── */
+.btn-ghost {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 9999px;
+  padding: 12px 28px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+  transform: translateY(0);
+}
+
+/* ─── Secondary Icon-only button ────────────────────────────── */
+.btn-secondary {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 9999px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
 }
 
 /* ─── Text Effects ──────────────────────────────────────────── */
@@ -251,6 +279,16 @@ body {
 /* ─── Animations ────────────────────────────────────────────── */
 @keyframes shimmer { to { left: 120%; } }
 
+@keyframes float-portrait {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float-portrait {
+  animation-name: float-portrait;
+  animation-iteration-count: infinite;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
@@ -275,6 +313,51 @@ body {
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 .animate-bounce-down { animation: bounce-down 1.5s ease-in-out infinite; }
 
+/* ─── Marquee Carousel ────────────────────────────── */
+.marquee-track {
+  animation: marqueeScroll 30s linear infinite;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-slide {
+  flex-shrink: 0;
+  min-width: 0;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 320px;
+}
+
+@media (min-width: 640px) {
+  .marquee-slide {
+    width: 380px;
+  }
+}
+
+@media (min-width: 768px) {
+  .marquee-slide {
+    width: 50vw;
+    max-width: 444px; /* 420px card + 12px left + 12px right padding */
+  }
+}
+
+@media (min-width: 1024px) {
+  .marquee-slide {
+    width: 45vw;
+    max-width: 444px;
+  }
+}
+
+@media (max-width: 767px) {
+  .marquee-track {
+    animation-duration: 25s; /* faster on mobile for better perceived speed */
+  }
+}
+
 @keyframes wa-pulse {
   0%, 100% { transform: scale(1); opacity: 0.2; }
   50% { transform: scale(1.15); opacity: 0.08; }
@@ -291,10 +374,235 @@ body {
   to   { transform: translateX(-50%); }
 }
 
+/* ─── Team Section ─────────────────────────────────────────── */
+.team-slot {
+  position: absolute;
+  left: var(--x);
+  margin-left: -75px;
+  margin-top: -75px;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .team-slot {
+    left: var(--x-md);
+    margin-left: -90px;
+    margin-top: -90px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-slot {
+    margin-left: -110px;
+    margin-top: -110px;
+  }
+}
+
+/* Acrylic glass card — identical styling for every member */
+.team-card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 20px 45px -18px rgba(0, 0, 0, 0.55),
+    0 0 26px rgba(79, 142, 247, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Premium acrylic reflection */
+.team-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 30%, transparent 48%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent 34%);
+}
+
+.team-card:hover {
+  border-color: rgba(6, 182, 212, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(6, 182, 212, 0.1),
+    0 24px 60px -18px rgba(0, 0, 0, 0.6),
+    0 0 44px rgba(79, 142, 247, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Premium glass CTA */
+.team-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 30px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 26px rgba(79, 142, 247, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.team-cta:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow:
+    0 0 44px rgba(79, 142, 247, 0.32),
+    0 12px 32px -12px rgba(6, 182, 212, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Hidden scrollbar for the mobile carousel */
+.team-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.team-scroll::-webkit-scrollbar { display: none; }
+
+/* Subtle AI network background */
+@keyframes team-drift {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  12%  { opacity: 0.85; }
+  80%  { opacity: 0.7; }
+  100% { transform: translate3d(-70px, -46px, 0); opacity: 0; }
+}
+.team-particle { animation: team-drift linear infinite; }
+
+@keyframes team-dash { to { stroke-dashoffset: -34; } }
+.team-net-line { animation: team-dash 13s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .team-particle,
+  .team-net-line { animation: none; }
+}
+
+/* ─── Chat Widget ──────────────────────────────────────────── */
+/* Gentle 5px float for the launcher */
+@keyframes chat-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.animate-chat-float { animation: chat-float 4s ease-in-out infinite; will-change: transform; }
+
+/* Acrylic launcher — the icon PNG is the button.
+   Neon glow via drop-shadow applied directly to the image,
+   so no extra wrapper circle is needed. */
+.chat-launcher-icon {
+  filter: drop-shadow(0 0 18px rgba(0, 225, 255, 0.45)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.35));
+  transition: filter 0.25s ease, transform 0.25s ease;
+  will-change: filter, transform;
+}
+
+.group:hover .chat-launcher-icon {
+  filter: drop-shadow(0 0 26px rgba(0, 225, 255, 0.7)) drop-shadow(0 0 55px rgba(168, 85, 247, 0.55));
+}
+
+/* Acrylic shine sweep across the icon on hover */
+.chat-launcher-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.chat-launcher-shine::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -80%;
+  width: 55%;
+  height: 140%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 255, 255, 0.06) 62%,
+    transparent 100%
+  );
+  transform: skewX(-18deg) translateX(0);
+  transition: transform 0.6s ease;
+}
+.group:hover .chat-launcher-shine::after {
+  transform: skewX(-18deg) translateX(360%);
+}
+
+/* Typing indicator — three glowing dots */
+@keyframes chat-typing-dot {
+  0%, 60%, 100% { transform: translateY(0) scale(0.85); opacity: 0.55; }
+  30% { transform: translateY(-5px) scale(1.1); opacity: 1; }
+}
+.chat-typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  animation: chat-typing-dot 1.1s ease-in-out infinite;
+}
+
+/* Click ripple for the send button */
+@keyframes chat-ripple {
+  from { transform: scale(0.2); opacity: 0.65; }
+  to { transform: scale(2.4); opacity: 0; }
+}
+
+/* Green status dot pulse */
+@keyframes chat-status-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.6); }
+  50% { box-shadow: 0 0 0 5px rgba(52,211,153,0); }
+}
+.animate-chat-status { animation: chat-status-pulse 2s ease-out infinite; }
+
+/* Subtle AI network particles inside the panel */
+@keyframes chat-particle-drift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { opacity: 0.9; }
+  85% { opacity: 0.5; }
+  100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
+}
+.chat-particle { animation: chat-particle-drift linear infinite; will-change: transform, opacity; }
+
+/* Thin glow scrollbar for the chat panel */
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(79,142,247,0.5) transparent;
+}
+.chat-scroll::-webkit-scrollbar { width: 4px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(6,182,212,0.6), rgba(124,58,237,0.6));
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(79,142,247,0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-chat-float,
+  .chat-typing-dot,
+  .chat-particle,
+  .animate-chat-status { animation: none; }
+}
+
 /* ─── Mobile Performance ────────────────────────────────────── */
 @media (max-width: 767px) {
   /* Disable expensive backdrop-filter on low-power devices */
-  .glass-card {
+  .glass-card,
+  .team-card {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -317,5 +625,6 @@ body {
 /* ─── Touch devices: remove hover transforms ────────────────── */
 @media (hover: none) {
   .glass-card:hover { transform: none; border-color: rgba(255,255,255,0.08); }
-  .glossy-btn:hover { transform: none; }
+  .btn-primary:hover { transform: none; }
+  .btn-ghost:hover { transform: none; }
 }

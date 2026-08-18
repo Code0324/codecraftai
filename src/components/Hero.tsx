@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import gsap from 'gsap';
 import { techBadges } from '@/lib/constants';
 import GlossyButton from './GlossyButton';
@@ -115,7 +115,7 @@ export default function Hero() {
             {/* Buttons */}
             <div ref={buttonsRef} className="flex flex-wrap gap-4 mt-2">
               <GlossyButton onClick={scrollToContact} size="lg">
-                Get AI Employee <ArrowRight size={16} />
+                Get AI Employee
               </GlossyButton>
               <GlossyButton onClick={scrollToProjects} variant="ghost" size="lg">
                 View Projects

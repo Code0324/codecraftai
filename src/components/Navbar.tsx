@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import GlossyButton from './GlossyButton';
-import LogoSVG from './LogoSVG';
 
 const links = ['About', 'Process', 'Services', 'Projects', 'Pricing', 'FAQ'];
 
@@ -26,11 +26,16 @@ export default function Navbar() {
       }}
     >
       <div className="flex items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <LogoSVG size={24} showText={false} />
-          <div className="heading-font font-bold text-lg text-white">
-            CodeCraft<span style={{ opacity: 0.6 }}>AI</span>
-          </div>
+        <Link href="/" className="flex items-center" aria-label="CodeCraftAI home">
+          <Image
+            src="/logo/logo.png?v=2"
+            alt="CodeCraftAI"
+            width={1774}
+            height={887}
+            priority
+            sizes="(min-width: 1024px) 96px, 80px"
+            className="h-10 lg:h-12 w-auto"
+          />
         </Link>
 
         <div className="hidden lg:flex items-center gap-8 bg-white/5 px-6 py-2 rounded-full border border-white/5">

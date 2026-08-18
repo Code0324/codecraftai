@@ -5,7 +5,7 @@ const About        = dynamic(() => import('@/components/About'));
 const Process      = dynamic(() => import('@/components/Process'));
 const Services     = dynamic(() => import('@/components/Services'));
 const Features     = dynamic(() => import('@/components/Features'));
-const OurAITeam    = dynamic(() => import('@/components/OurAITeam'));
+const TeamSection  = dynamic(() => import('@/components/TeamSection'));
 const AIToolsNeon  = dynamic(() => import('@/components/AIToolsNeon'));
 const Projects     = dynamic(() => import('@/components/Projects'));
 const Pricing      = dynamic(() => import('@/components/Pricing'));
@@ -23,7 +23,7 @@ export default function HomePage() {
       <Process />
       <Services />
       <Features />
-      <OurAITeam />
+      <TeamSection />
       <AIToolsNeon />
       <Projects />
       <Pricing />

@@ -1,7 +1,8 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Bot, Sparkles } from 'lucide-react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
+import Image from 'next/image';
+import { X, ArrowUp } from 'lucide-react';
 
 const SYSTEM_PROMPT = `You are the CodeCraftAI Assistant — a smart, friendly AI assistant for CodeCraftAI agency.
 CodeCraftAI is a Pakistan-based AI & Full-Stack Development agency specializing in:
@@ -22,13 +23,129 @@ const WELCOME_MESSAGE: Message = {
     "Hi! I'm the CodeCraftAI Assistant 👋 I can help you with questions about our services, tech stack, pricing, and project inquiries. What can I help you with today?",
 };
 
+/* ─── Chatbot icon (falls back to a glowing AI orb) ────────── */
+function ChatIcon({ className = '', sizes = '48px' }: { className?: string; sizes?: string }) {
+  const [error, setError] = useState(false);
+
+  if (error) {
+    return (
+      <span
+        className={`relative flex items-center justify-center rounded-full ${className}`}
+        style={{
+          background:
+            'radial-gradient(circle at 35% 30%, #22d3ee, #4F8EF7 55%, #7C3AED)',
+          boxShadow: '0 0 14px rgba(79,142,247,0.6), inset 0 1px 0 rgba(255,255,255,0.25)',
+        }}
+        aria-hidden="true"
+      >
+        <span
+          className="absolute rounded-full bg-white/40 blur-[1px]"
+          style={{ width: '42%', height: '42%', top: '20%', left: '24%' }}
+        />
+      </span>
+    );
+  }
+
+  return (
+    <span className={`relative block overflow-hidden ${className}`}>
+      <Image
+        src="/chatbot/chatbot-icon.png"
+        alt=""
+        fill
+        sizes={sizes}
+        className="object-contain"
+        onError={() => setError(true)}
+      />
+    </span>
+  );
+}
+
+/* ─── Subtle AI network particles (opacity < 5%) ───────────── */
+function ChatParticles() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, i) => ({
+        left: `${(i * 37 + 8) % 100}%`,
+        top: `${(i * 53 + 12) % 100}%`,
+        size: 2 + (i % 3),
+        delay: `${(i % 7) * 0.9}s`,
+        duration: `${9 + (i % 6) * 2}s`,
+        color: ['#06B6D4', '#4F8EF7', '#7C3AED'][i % 3],
+        dx: `${-(20 + (i % 4) * 8)}px`,
+        dy: `${-(14 + (i % 3) * 8)}px`,
+      })),
+    []
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.045]" aria-hidden="true">
+      {/* Ambient neon glows */}
+      <div
+        className="absolute -top-20 -right-20 w-64 h-64 rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(79,142,247,0.5), transparent 70%)' }}
+      />
+      <div
+        className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.4), transparent 70%)' }}
+      />
+      <div
+        className="absolute top-1/3 left-1/4 w-40 h-40 rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.35), transparent 70%)' }}
+      />
+      {/* Drifting glow dots */}
+      {particles.map((p, i) => (
+        <span
+          key={i}
+          className="chat-particle absolute rounded-full"
+          style={
+            {
+              left: p.left,
+              top: p.top,
+              width: p.size,
+              height: p.size,
+              background: p.color,
+              boxShadow: `0 0 ${p.size * 2}px ${p.color}`,
+              animationDuration: p.duration,
+              animationDelay: p.delay,
+              '--dx': p.dx,
+              '--dy': p.dy,
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ─── Glowing typing dots ──────────────────────────────────── */
+function TypingDots() {
+  return (
+    <span className="flex items-center gap-1.5 py-0.5" role="status" aria-label="Assistant is typing">
+      <span
+        className="chat-typing-dot"
+        style={{ background: '#4F8EF7', boxShadow: '0 0 8px rgba(79,142,247,0.9)', animationDelay: '0ms' }}
+      />
+      <span
+        className="chat-typing-dot"
+        style={{ background: '#7C3AED', boxShadow: '0 0 8px rgba(124,58,237,0.9)', animationDelay: '140ms' }}
+      />
+      <span
+        className="chat-typing-dot"
+        style={{ background: '#06B6D4', boxShadow: '0 0 8px rgba(6,182,212,0.9)', animationDelay: '280ms' }}
+      />
+    </span>
+  );
+}
+
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
+  const [rippleKey, setRippleKey] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const toggleBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -39,6 +156,19 @@ export default function ChatBot() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  /* Close on Escape — keyboard accessibility */
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        toggleBtnRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen]);
 
   async function sendMessage() {
     const text = input.trim();
@@ -101,115 +231,145 @@ export default function ChatBot() {
     }
   }
 
+  const canSend = !!input.trim() && !isStreaming;
+
   return (
-    <>
-      {/* Chat Window */}
+    <MotionConfig reducedMotion="user">
+      {/* ─── Chat Window ─────────────────────────────────────── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-            className="fixed z-[9998] flex flex-col overflow-hidden"
+            id="codecraftai-chat"
+            role="dialog"
+            aria-label="CodeCraftAI Assistant chat window"
+            className="fixed z-[10001] flex flex-col overflow-hidden rounded-[28px] bottom-[100px] sm:bottom-[176px] right-4 sm:right-6 w-[calc(100%-32px)] sm:w-[380px] lg:w-[420px] h-[min(75dvh,calc(100dvh-120px))] sm:h-[min(620px,calc(100dvh-200px))] lg:h-[min(680px,calc(100dvh-200px))]"
             style={{
-              bottom: '96px',
-              right: '24px',
-              width: 'min(380px, calc(100vw - 32px))',
-              height: 'min(500px, calc(100dvh - 120px))',
-              background: 'rgba(10,11,15,0.88)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(79,142,247,0.18)',
-              borderRadius: '1.5rem',
-              boxShadow: '0 8px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(79,142,247,0.08), 0 0 40px rgba(79,142,247,0.06)',
+              background: 'rgba(8,10,20,0.55)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              border: '1px solid rgba(0,255,255,0.18)',
+              boxShadow:
+                '0 0 0 1px rgba(255,255,255,0.04), 0 24px 80px -16px rgba(0,0,0,0.65), 0 0 40px rgba(6,182,212,0.10), 0 0 80px rgba(124,58,237,0.08), inset 0 1px 0 rgba(255,255,255,0.10)',
+              transformOrigin: 'bottom right',
             }}
+            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
+            <ChatParticles />
+
+            {/* Acrylic sheen */}
+            <div
+              className="absolute inset-0 pointer-events-none z-[1]"
+              style={{
+                background:
+                  'linear-gradient(115deg, rgba(255,255,255,0.06) 0%, transparent 42%), linear-gradient(to bottom, rgba(255,255,255,0.03), transparent 30%)',
+              }}
+            />
+
             {/* Gradient accent bar */}
             <div
-              className="h-0.5 w-full flex-shrink-0"
-              style={{ background: 'linear-gradient(90deg, #4F8EF7 0%, #7C3AED 50%, #06b6d4 100%)' }}
+              className="relative z-10 h-[2px] w-full flex-shrink-0"
+              style={{ background: 'linear-gradient(90deg, #06B6D4 0%, #4F8EF7 50%, #7C3AED 100%)' }}
             />
 
             {/* Header */}
             <div
-              className="flex items-center gap-3 px-4 py-3 flex-shrink-0"
-              style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+              className="relative z-10 flex items-center gap-3 px-4 py-3.5 flex-shrink-0"
+              style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
             >
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                className="flex-shrink-0 rounded-2xl"
                 style={{
-                  background: 'linear-gradient(135deg, #4F8EF7 0%, #7C3AED 100%)',
-                  boxShadow: '0 0 16px rgba(79,142,247,0.4)',
+                  boxShadow: '0 0 18px rgba(79,142,247,0.4), inset 0 1px 0 rgba(255,255,255,0.15)',
                 }}
               >
-                <Sparkles size={16} className="text-white" />
+                <ChatIcon className="w-10 h-10 rounded-2xl" sizes="40px" />
               </div>
+
               <div className="flex-1 min-w-0">
                 <p className="text-white font-semibold text-sm leading-tight truncate">
                   CodeCraftAI Assistant
                 </p>
-                <p className="text-emerald-400 text-xs font-medium flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-                  Online
+                <p className="flex items-center gap-1.5 text-xs font-medium mt-0.5" style={{ color: '#34d399' }}>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-chat-status absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                  </span>
+                  Always Online
                 </p>
               </div>
-              <button
+
+              <motion.button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors flex-shrink-0"
+                whileHover={{ rotate: 6, scale: 1.05 }}
+                whileTap={{ scale: 0.92 }}
+                className="group relative w-9 h-9 rounded-full flex items-center justify-center text-slate-300 hover:text-white transition-colors duration-200 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70"
+                style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                }}
                 aria-label="Close chat"
               >
-                <X size={16} />
-              </button>
+                <span
+                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ boxShadow: '0 0 18px rgba(6,182,212,0.45)' }}
+                />
+                <X size={16} className="relative" />
+              </motion.button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 min-h-0">
+            <div
+              className="chat-scroll relative z-10 flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 min-h-0"
+              role="log"
+              aria-relevant="additions"
+              aria-busy={isStreaming}
+            >
               <AnimatePresence initial={false}>
                 {messages.map((msg, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.22 }}
-                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.97 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-2`}
                   >
                     {msg.role === 'assistant' && (
-                      <div
-                        className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mr-2 mt-0.5"
-                        style={{
-                          background: 'linear-gradient(135deg, #4F8EF7 0%, #7C3AED 100%)',
-                          boxShadow: '0 0 10px rgba(79,142,247,0.3)',
-                        }}
-                      >
-                        <Bot size={12} className="text-white" />
+                      <div className="flex-shrink-0 mb-0.5">
+                        <ChatIcon className="w-6 h-6 rounded-full" sizes="24px" />
                       </div>
                     )}
                     <div
-                      className="max-w-[78%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed"
+                      className="max-w-[82%] px-4 py-2.5 rounded-2xl leading-relaxed"
                       style={
                         msg.role === 'user'
                           ? {
-                              background: 'linear-gradient(135deg, #4F8EF7 0%, #3b72d6 100%)',
+                              background:
+                                'linear-gradient(135deg, rgba(79,142,247,0.92), rgba(124,58,237,0.85))',
+                              border: '1px solid rgba(147,197,253,0.3)',
                               color: '#fff',
-                              borderBottomRightRadius: '4px',
-                              boxShadow: '0 2px 12px rgba(79,142,247,0.25)',
+                              fontSize: '14px',
+                              borderBottomRightRadius: '6px',
+                              boxShadow:
+                                '0 4px 18px rgba(79,142,247,0.3), inset 0 1px 0 rgba(255,255,255,0.18)',
                             }
                           : {
                               background: 'rgba(255,255,255,0.05)',
-                              border: '1px solid rgba(255,255,255,0.08)',
+                              border: '1px solid rgba(6,182,212,0.25)',
+                              backdropFilter: 'blur(10px)',
+                              WebkitBackdropFilter: 'blur(10px)',
                               color: '#e2e8f0',
-                              borderBottomLeftRadius: '4px',
+                              fontSize: '14.5px',
+                              borderBottomLeftRadius: '6px',
+                              boxShadow:
+                                'inset 0 1px 0 rgba(255,255,255,0.07), 0 2px 14px rgba(0,0,0,0.2)',
                             }
                       }
                     >
-                      {msg.content || (
-                        <span className="flex items-center gap-1.5 text-slate-400">
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '120ms' }} />
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '240ms' }} />
-                        </span>
-                      )}
+                      {msg.content || <TypingDots />}
                     </div>
                   </motion.div>
                 ))}
@@ -219,14 +379,14 @@ export default function ChatBot() {
 
             {/* Input */}
             <div
-              className="px-3 py-3 flex-shrink-0"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+              className="relative z-10 px-3 pt-2.5 pb-3 flex-shrink-0"
+              style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
             >
               <div
-                className="flex items-center gap-2 rounded-full px-4 py-2.5 transition-all duration-200"
+                className="flex items-center gap-2 rounded-full px-4 py-2 transition-all duration-300 focus-within:border-cyan-400/50 focus-within:shadow-[0_0_24px_rgba(6,182,212,0.22)]"
                 style={{
                   background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(79,142,247,0.2)',
+                  border: '1px solid rgba(255,255,255,0.1)',
                 }}
               >
                 <input
@@ -235,24 +395,51 @@ export default function ChatBot() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask me anything…"
+                  placeholder="Ask CodeCraftAI anything..."
                   disabled={isStreaming}
-                  className="flex-1 bg-transparent outline-none text-sm text-white placeholder-slate-500 disabled:opacity-50"
+                  aria-label="Message CodeCraftAI Assistant"
+                  className="flex-1 min-w-0 bg-transparent outline-none text-sm text-white placeholder-slate-500 disabled:opacity-50"
                 />
-                <button
-                  onClick={sendMessage}
-                  disabled={!input.trim() || isStreaming}
-                  className="w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
-                  style={{
-                    background: 'linear-gradient(135deg, #4F8EF7 0%, #7C3AED 100%)',
-                    boxShadow: input.trim() ? '0 0 12px rgba(79,142,247,0.5)' : 'none',
+                <motion.button
+                  onClick={() => {
+                    if (!canSend) return;
+                    setRippleKey((k) => k + 1);
+                    sendMessage();
                   }}
-                  aria-label="Send"
+                  whileHover={canSend ? { scale: 1.06 } : undefined}
+                  whileTap={canSend ? { scale: 0.92 } : undefined}
+                  disabled={!canSend}
+                  aria-label="Send message"
+                  className="group relative w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70"
+                  style={{
+                    background: 'linear-gradient(135deg, #06B6D4 0%, #4F8EF7 50%, #7C3AED 100%)',
+                    boxShadow: canSend
+                      ? '0 0 18px rgba(79,142,247,0.55), inset 0 1px 0 rgba(255,255,255,0.25)'
+                      : 'inset 0 1px 0 rgba(255,255,255,0.15)',
+                  }}
                 >
-                  <Send size={13} className="text-white" />
-                </button>
+                  {/* Hover glow (only when enabled) */}
+                  {canSend && (
+                    <span
+                      className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      style={{ boxShadow: '0 0 26px rgba(6,182,212,0.7)' }}
+                    />
+                  )}
+                  {/* Click ripple */}
+                  {rippleKey > 0 && (
+                    <motion.span
+                      key={rippleKey}
+                      className="absolute inset-0 rounded-full pointer-events-none"
+                      style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.7), transparent 70%)' }}
+                      initial={{ scale: 0.2, opacity: 0.7 }}
+                      animate={{ scale: 2.4, opacity: 0 }}
+                      transition={{ duration: 0.6, ease: 'easeOut' }}
+                    />
+                  )}
+                  <ArrowUp size={18} className="relative text-white" />
+                </motion.button>
               </div>
-              <p className="text-center text-slate-600 text-[10px] mt-1.5">
+              <p className="text-center text-slate-600 text-[10px] mt-2">
                 Powered by Claude · CodeCraftAI
               </p>
             </div>
@@ -260,49 +447,56 @@ export default function ChatBot() {
         )}
       </AnimatePresence>
 
-      {/* Floating Toggle Button */}
+      {/* ─── Floating Toggle Button ────────────────────────────
+         The icon PNG itself is the button — no wrapper circle,
+         no border, no cropping. Acrylic glow comes from CSS
+         drop-shadows applied directly to the image. */}
       <motion.button
+        ref={toggleBtnRef}
         onClick={() => setIsOpen((v) => !v)}
-        whileHover={{ scale: 1.08 }}
+        whileHover={{ scale: 1.08, y: -4 }}
         whileTap={{ scale: 0.94 }}
-        className="fixed z-[9999] w-14 h-14 rounded-full flex items-center justify-center"
-        style={{
-          bottom: '24px',
-          right: '24px',
-          background: 'linear-gradient(135deg, #4F8EF7 0%, #7C3AED 100%)',
-          boxShadow: '0 0 0 0 rgba(79,142,247,0.4)',
-        }}
-        aria-label="Open chat"
+        className="group fixed z-[10002] w-16 h-16 md:w-[68px] md:h-[68px] lg:w-[72px] lg:h-[72px] rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050816]"
+        style={{ bottom: '14px', right: '24px' }}
+        transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        aria-expanded={isOpen}
+        aria-controls="codecraftai-chat"
       >
-        {/* Pulse rings */}
-        <span
-          className="absolute inset-0 rounded-full animate-ping opacity-30"
-          style={{ background: 'linear-gradient(135deg, #4F8EF7, #7C3AED)' }}
-        />
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.span
-              key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.18 }}
-            >
-              <X size={22} className="text-white" />
-            </motion.span>
-          ) : (
-            <motion.span
-              key="open"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.18 }}
-            >
-              <Sparkles size={22} className="text-white" />
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {/* Idle float (subtle, 4s, no bounce) */}
+        <span className="absolute inset-0 animate-chat-float">
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.span
+                key="close"
+                initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+                animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                className="absolute inset-0 flex items-center justify-center text-white"
+              >
+                <X size={26} className="text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="open"
+                initial={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                exit={{ rotate: -90, opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                className="absolute inset-0"
+              >
+                {/* The icon itself — acrylic shine + neon glow via CSS */}
+                <span className="chat-launcher-icon absolute inset-0">
+                  <ChatIcon className="w-full h-full" sizes="(min-width: 1024px) 72px, (min-width: 768px) 68px, 64px" />
+                  {/* Acrylic shine sweep overlay */}
+                  <span className="chat-launcher-shine" aria-hidden="true" />
+                </span>
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </span>
       </motion.button>
-    </>
+    </MotionConfig>
   );
 }

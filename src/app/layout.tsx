@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     title: 'CodeCraftAI — Build smarter with AI Crafted',
     description: 'AI-first software agency for next-gen businesses.',
   },
+  icons: {
+    icon: [
+      { url: '/logo/logo.png?v=2', type: 'image/png' },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

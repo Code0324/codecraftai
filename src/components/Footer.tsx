@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaTwitter, FaGithub, FaLinkedin, FaDribbble } from 'react-icons/fa';
-import LogoSVG from './LogoSVG';
 
 export default function Footer() {
   return (
@@ -15,11 +15,15 @@ export default function Footer() {
           
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-16 relative z-10">
             <div className="max-w-xs">
-              <Link href="/" className="flex items-center gap-2 mb-6">
-                <LogoSVG className="w-8 h-8 text-[#4F8EF7]" showText={false} />
-                <span className="heading-font font-bold text-2xl text-white tracking-wide">
-                  CodeCraft<span className="text-white/60">AI</span>
-                </span>
+              <Link href="/" className="flex items-center mb-6" aria-label="CodeCraftAI home">
+                <Image
+                  src="/logo/logo.png?v=2"
+                  alt="CodeCraftAI"
+                  width={1774}
+                  height={887}
+                  sizes="80px"
+                  className="h-10 w-auto"
+                />
               </Link>
               <p className="text-slate-400 text-base leading-relaxed">
                 Streamline operations, boost productivity, and scale smarter with CodeCraftAI.
