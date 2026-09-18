@@ -9,23 +9,23 @@ const pricingPlans = [
   {
     name: 'Starter',
     desc: 'Perfect for small businesses just getting started.',
-    monthlyPrice: '$2,999',
-    yearlyPrice: '$2,499',
+    monthlyPrice: '$200',
+    yearlyPrice: '$2,099',
     features: ['Custom Web Design', 'Responsive Development', 'Basic SEO Setup', '1 Month Support', 'Standard Integration']
   },
   {
     name: 'Pro',
     desc: 'Ideal for growing companies needing advanced features.',
-    monthlyPrice: '$5,999',
-    yearlyPrice: '$4,999',
+    monthlyPrice: '$300',
+    yearlyPrice: '$3,099',
     isPopular: true,
     features: ['Everything in Starter', 'Advanced Animations', 'CMS Integration', 'E-commerce Functionality', '3 Months Support', 'Priority Delivery']
   },
   {
     name: 'Enterprise',
     desc: 'For large organizations with complex requirements.',
-    monthlyPrice: 'Custom',
-    yearlyPrice: 'Custom',
+    monthlyPrice: '$500',
+    yearlyPrice: '$5000',
     features: ['Everything in Pro', 'Custom Web App Development', 'Dedicated Project Manager', 'SLA Support', 'Unlimited Revisions', 'Advanced Security']
   }
 ];
