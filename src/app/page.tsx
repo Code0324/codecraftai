@@ -1,37 +1,30 @@
 import dynamic from 'next/dynamic';
 import Hero from '@/components/Hero';
 
-const About        = dynamic(() => import('@/components/About'));
-const Process      = dynamic(() => import('@/components/Process'));
-const Services     = dynamic(() => import('@/components/Services'));
-const Features     = dynamic(() => import('@/components/Features'));
-const TeamSection  = dynamic(() => import('@/components/TeamSection'));
-const AIToolsNeon  = dynamic(() => import('@/components/AIToolsNeon'));
-const Projects     = dynamic(() => import('@/components/Projects'));
-const Pricing      = dynamic(() => import('@/components/Pricing'));
-const Testimonials = dynamic(() => import('@/components/Testimonials'));
-const FAQ          = dynamic(() => import('@/components/FAQ'));
-const CTABanner    = dynamic(() => import('@/components/CTABanner'));
-const Contact      = dynamic(() => import('@/components/Contact'));
-const Footer       = dynamic(() => import('@/components/Footer'));
+const About          = dynamic(() => import('@/components/About'));
+const Process        = dynamic(() => import('@/components/Process'));
+const ProblemSolving = dynamic(() => import('@/components/ProblemSolving'));
+const FeaturedServices = dynamic(() => import('@/components/FeaturedServices'));
+const FeaturedProjects = dynamic(() => import('@/components/FeaturedProjects'));
+const TeamPreview    = dynamic(() => import('@/components/TeamPreview'));
+const Testimonials   = dynamic(() => import('@/components/Testimonials'));
+const Contact        = dynamic(() => import('@/components/Contact'));
+const Footer         = dynamic(() => import('@/components/Footer'));
+const AIToolsNeon    = dynamic(() => import('@/components/AIToolsNeon'));
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <ProblemSolving />
       <About />
-      <Process />
-      <Services />
-      <Features />
-      <TeamSection />
       <AIToolsNeon />
-      <Projects />
-      <Pricing />
+      <FeaturedServices />
+      <FeaturedProjects />
+      <Process />
+      <TeamPreview />
       <Testimonials />
-      <FAQ />
-      <CTABanner />
       <Contact />
-      <Footer />
     </>
   );
 }
