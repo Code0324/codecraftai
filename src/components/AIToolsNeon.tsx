@@ -1,199 +1,134 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import {
-  SiOpenai, SiAnthropic, SiGoogle, SiMeta, SiMistral,
-  SiGithub, SiReplit, SiVercel, SiDocker,
-  SiAmazonaws, SiGooglecloud, SiMicrosoft,
-  SiSlack, SiNotion, SiShopify, SiHubspot, SiSalesforce
-} from 'react-icons/si';
-import {
-  Bot, Zap, Code2, Megaphone, Cloud, Database, Users, DollarSign, ShoppingCart, Workflow, ArrowRight
-} from 'lucide-react';
+import Image from 'next/image';
 
 interface Category {
   id: string;
   title: string;
-  icon: React.ReactNode;
-  tools: string[];
+  desc: string;
+  icon: string;
 }
 
-const categories: Category[] = [
+const leftCategories: Category[] = [
   {
     id: 'llms',
     title: 'LLMs & AI Models',
-    icon: <SiOpenai className="w-6 h-6" />,
-    tools: ['ChatGPT', 'Claude', 'Gemini', 'Llama', 'Mistral'],
+    desc: 'ChatGPT, Claude, Gemini, Llama, Mistral & more',
+    icon: '/images/Ai-tools/01_llms_ai_models.png',
   },
   {
     id: 'agents',
     title: 'AI Agents & Assistants',
-    icon: <Bot className="w-6 h-6" />,
-    tools: ['Research', 'Analyze', 'Create', 'Plan', 'Execute'],
+    desc: 'Research, analyze, create, plan, & take action',
+    icon: '/images/Ai-tools/02_ai_agents_assistants.png',
   },
   {
     id: 'automation',
     title: 'Automation & Workflows',
-    icon: <Workflow className="w-6 h-6" />,
-    tools: ['Zapier', 'Make', 'n8n', 'Pabbly', 'API'],
+    desc: 'Zapier, Make, n8n, Pabbly, API integrations',
+    icon: '/images/Ai-tools/03_automation_workflows.png',
   },
   {
     id: 'dev',
     title: 'Development & Coding',
-    icon: <Code2 className="w-6 h-6" />,
-    tools: ['GitHub', 'Replit', 'Cursor', 'Devin', 'Copilot'],
+    desc: 'GitHub, Replit, Cursor, Devin, Copilot',
+    icon: '/images/Ai-tools/04_development_coding.png',
   },
   {
     id: 'content',
     title: 'Content & Marketing',
-    icon: <Megaphone className="w-6 h-6" />,
-    tools: ['Copywriting', 'SEO', 'Social Media', 'Design', 'Video'],
+    desc: 'Copywriting, SEO, social media, design & video',
+    icon: '/images/Ai-tools/05_content_marketing.png',
   },
+];
+
+const rightCategories: Category[] = [
   {
     id: 'cloud',
     title: 'Cloud & Infrastructure',
-    icon: <Cloud className="w-6 h-6" />,
-    tools: ['AWS', 'Azure', 'Google Cloud', 'Oracle', 'Docker'],
+    desc: 'AWS, Azure, Google Cloud, Oracle, Vercel, Docker',
+    icon: '/images/Ai-tools/06_cloud_infrastructure.png',
   },
   {
     id: 'data',
     title: 'Data & Analytics',
-    icon: <Database className="w-6 h-6" />,
-    tools: ['BigQuery', 'Snowflake', 'Power BI', 'Looker', 'Databricks'],
+    desc: 'Databases, BigQuery, Snowflake, Power BI, Looker',
+    icon: '/images/Ai-tools/07_data_analytics.png',
   },
   {
     id: 'productivity',
     title: 'Productivity & Collaboration',
-    icon: <Users className="w-6 h-6" />,
-    tools: ['Slack', 'Notion', 'Microsoft 365', 'Google Workspace', 'Figma'],
+    desc: 'Slack, Notion, Microsoft 365, Google Workspace',
+    icon: '/images/Ai-tools/08_productivity_collaboration.png',
   },
   {
     id: 'sales',
     title: 'Sales & CRM',
-    icon: <DollarSign className="w-6 h-6" />,
-    tools: ['HubSpot', 'Salesforce', 'Pipedrive', 'ActiveCampaign', 'Close'],
+    desc: 'HubSpot, Salesforce, Pipedrive, ActiveCampaign',
+    icon: '/images/Ai-tools/09_sales_crm.png',
   },
   {
     id: 'ecommerce',
     title: 'E-Commerce & Operations',
-    icon: <ShoppingCart className="w-6 h-6" />,
-    tools: ['Shopify', 'WooCommerce', 'Inventory', 'Payments', 'Shipping'],
+    desc: 'Shopify, WooCommerce, Inventory, Payments',
+    icon: '/images/Ai-tools/10_ecommerce_operations.png',
   },
 ];
 
 const flowSteps = [
-  { label: 'Discover', desc: 'Ideas & Research' },
-  { label: 'Plan', desc: 'Strategy & Tasks' },
-  { label: 'Build', desc: 'Content, Code, Systems' },
-  { label: 'Execute', desc: 'Automate & Deploy' },
-  { label: 'Grow', desc: 'Scale & Optimize' },
+  { label: 'Discover', icon: '/images/Ai-tools/12_workflow_discover.png' },
+  { label: 'Plan', icon: '/images/Ai-tools/13_workflow_plan.png' },
+  { label: 'Build', icon: '/images/Ai-tools/14_workflow_build.png' },
+  { label: 'Execute', icon: '/images/Ai-tools/15_workflow_execute.png' },
+  { label: 'Grow', icon: '/images/Ai-tools/16_workflow_grow.png' },
 ];
 
 const outcomes = [
-  { icon: '🚀', label: 'Startups', desc: 'Launch faster' },
-  { icon: '💼', label: 'Businesses', desc: 'Work smarter' },
-  { icon: '👥', label: 'Teams', desc: 'Be more productive' },
-  { icon: '📈', label: 'Growth', desc: 'Achieve more' },
+  { label: 'Startups', desc: 'Launch faster', icon: '/images/Ai-tools/17_benefit_startups.png' },
+  { label: 'Businesses', desc: 'Work smarter', icon: '/images/Ai-tools/18_benefit_businesses.png' },
+  { label: 'Teams', desc: 'Be more productive', icon: '/images/Ai-tools/19_benefit_teams.png' },
+  { label: 'Growth', desc: 'Achieve more', icon: '/images/Ai-tools/20_benefit_growth.png' },
 ];
 
-/* ─── Animated Hub ──────────────────────────────────────────── */
-function AIHub() {
-  return (
-    <motion.div
-      className="relative w-32 h-32 mx-auto mb-12"
-      initial={{ scale: 0.8, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* Pulsing glow background */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-purple-500/20 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
-
-      {/* Rotating border ring */}
-      <motion.div
-        className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-amber-500 to-purple-500 bg-clip-border"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        style={{ padding: '2px' }}
-      />
-
-      {/* Central hub */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-purple-600 rounded-full flex items-center justify-center border border-amber-400/30">
-        <motion.div
-          animate={{ y: [-2, 2, -2] }}
-          transition={{ duration: 3, repeat: Infinity }}
-          className="text-center"
-        >
-          <div className="text-4xl font-black text-white">AI</div>
-          <div className="text-xs text-amber-100 font-semibold mt-1">Core</div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
 /* ─── Category Card ──────────────────────────────────────────– */
-function CategoryCard({ category, index, isLeft }: { category: Category; index: number; isLeft: boolean }) {
+function CategoryCard({ category, index }: { category: Category; index: number }) {
+  const prefersReduced = useRef(false);
+
+  useEffect(() => {
+    prefersReduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ y: -8 }}
-      className="group relative h-full"
+      transition={{ delay: prefersReduced.current ? 0 : index * 0.06, duration: 0.5 }}
+      whileHover={prefersReduced.current ? {} : { x: 8 }}
+      className="group flex items-start gap-4 cursor-pointer"
     >
-      {/* Card */}
-      <div className="relative p-6 rounded-xl bg-gradient-to-br from-slate-900/50 to-slate-950/50 border border-amber-500/20 hover:border-amber-400/40 transition-all duration-300 h-full flex flex-col">
-        {/* Hover glow */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-amber-500/0 to-purple-500/0 group-hover:from-amber-500/10 group-hover:to-purple-500/10 transition-all duration-300 pointer-events-none" />
+      {/* Icon Image */}
+      <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20">
+        <Image
+          src={category.icon}
+          alt={category.title}
+          width={80}
+          height={80}
+          className="w-full h-full object-cover rounded-lg"
+          quality={90}
+        />
+      </div>
 
-        {/* Icon with animation */}
-        <motion.div
-          className="mb-4 text-amber-400 flex-shrink-0"
-          animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
-          transition={{ duration: 4, repeat: Infinity, delay: index * 0.2 }}
-        >
-          {category.icon}
-        </motion.div>
-
-        {/* Title */}
-        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">
+      {/* Text Content */}
+      <div className="flex-grow pt-0 md:pt-2">
+        <h3 className="text-sm md:text-base font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors">
           {category.title}
         </h3>
-
-        {/* Tools list */}
-        <div className="flex-grow">
-          <div className="flex flex-wrap gap-2">
-            {category.tools.map((tool, i) => (
-              <motion.span
-                key={tool}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 + i * 0.05 }}
-                className="text-xs bg-amber-600/20 text-amber-200 px-2 py-1 rounded border border-amber-500/30"
-              >
-                {tool}
-              </motion.span>
-            ))}
-          </div>
-        </div>
-
-        {/* Border gradient on hover */}
-        <motion.div
-          className="absolute inset-0 rounded-xl pointer-events-none"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          style={{
-            background: 'linear-gradient(135deg, rgba(251,146,60,0.2) 0%, rgba(139,92,246,0.2) 100%)',
-          }}
-        />
+        <p className="text-xs md:text-sm text-slate-400 leading-snug">
+          {category.desc}
+        </p>
       </div>
     </motion.div>
   );
@@ -201,38 +136,82 @@ function CategoryCard({ category, index, isLeft }: { category: Category; index: 
 
 /* ─── Flow Step ──────────────────────────────────────────────– */
 function FlowStep({ step, index, total }: { step: typeof flowSteps[0]; index: number; total: number }) {
+  const prefersReduced = useRef(false);
+
+  useEffect(() => {
+    prefersReduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
+
   return (
-    <div className="flex items-center gap-2 sm:gap-4">
+    <div className="flex flex-col items-center gap-2 flex-1">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.1, duration: 0.4 }}
-        className="flex-shrink-0"
+        transition={{ delay: prefersReduced.current ? 0 : index * 0.1, duration: 0.4 }}
+        className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 flex items-center justify-center group hover:border-cyan-400/60 transition-all"
       >
-        <div className="relative">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-500 to-purple-600 flex items-center justify-center border border-amber-400/30 group">
-            <div className="text-center">
-              <div className="text-xs sm:text-sm font-bold text-white">{step.label}</div>
-              <div className="text-xs text-amber-100">{step.desc.split('&')[0]}</div>
-            </div>
-          </div>
-        </div>
+        <Image
+          src={step.icon}
+          alt={step.label}
+          width={60}
+          height={60}
+          className="w-10 h-10 md:w-12 md:h-12 object-contain"
+        />
       </motion.div>
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: prefersReduced.current ? 0 : index * 0.1 + 0.1, duration: 0.3 }}
+        className="text-xs md:text-sm font-bold text-white text-center"
+      >
+        {step.label}
+      </motion.span>
 
       {index < total - 1 && (
         <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.1, duration: 0.5 }}
-          className="flex-grow hidden sm:flex items-center origin-left"
-        >
-          <div className="w-full h-0.5 bg-gradient-to-r from-amber-500 to-purple-600" />
-          <ArrowRight className="w-4 h-4 text-amber-400 -ml-2 flex-shrink-0" />
-        </motion.div>
+          transition={{ delay: prefersReduced.current ? 0 : index * 0.1 + 0.2, duration: 0.4 }}
+          className="absolute left-full top-1/3 w-8 h-0.5 origin-left"
+          style={{ background: 'linear-gradient(to right, #06b6d4, #7c3aed)' }}
+        />
       )}
     </div>
+  );
+}
+
+/* ─── Outcome Card ──────────────────────────────────────────– */
+function OutcomeCard({ outcome, index }: { outcome: typeof outcomes[0]; index: number }) {
+  const prefersReduced = useRef(false);
+
+  useEffect(() => {
+    prefersReduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: prefersReduced.current ? 0 : index * 0.1, duration: 0.5 }}
+      whileHover={prefersReduced.current ? {} : { y: -8 }}
+      className="group text-center cursor-pointer"
+    >
+      <div className="mb-4 relative inline-block">
+        <Image
+          src={outcome.icon}
+          alt={outcome.label}
+          width={100}
+          height={100}
+          className="w-24 h-24 md:w-32 md:h-32 object-contain mx-auto drop-shadow-lg group-hover:drop-shadow-2xl transition-all"
+        />
+      </div>
+      <h3 className="text-base md:text-lg font-bold text-white mb-1">{outcome.label}</h3>
+      <p className="text-xs md:text-sm text-slate-400">{outcome.desc}</p>
+    </motion.div>
   );
 }
 
@@ -240,11 +219,16 @@ function FlowStep({ step, index, total }: { step: typeof flowSteps[0]; index: nu
 export default function AIToolsNeon() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const prefersReduced = useRef(false);
+
+  useEffect(() => {
+    prefersReduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-950/95 to-slate-950"
+      className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-950/98 to-slate-950"
     >
       <style>{`
         @media (prefers-reduced-motion: reduce) {
@@ -256,17 +240,17 @@ export default function AIToolsNeon() {
         }
       `}</style>
 
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Animated background glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl"
-          animate={{ y: [-20, 20, -20], x: [-10, 10, -10] }}
-          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute -top-64 -right-64 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"
+          animate={prefersReduced.current ? {} : { y: [-40, 40, -40], x: [-20, 20, -20] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"
-          animate={{ y: [20, -20, 20], x: [10, -10, 10] }}
-          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute -bottom-64 -left-64 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"
+          animate={prefersReduced.current ? {} : { y: [40, -40, 40], x: [20, -20, 20] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
         />
       </div>
 
@@ -276,74 +260,175 @@ export default function AIToolsNeon() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-6"
+          className="text-center mb-12 lg:mb-16"
         >
-          <span className="text-sm font-semibold text-amber-400 tracking-widest uppercase">
-            ⚡ AI-Powered Automation
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-3 mb-4 heading-font">
-            Build Smarter · Automate Faster · Grow Bigger
+          <motion.div
+            className="inline-block mb-4 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30"
+            animate={prefersReduced.current ? {} : { opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span className="text-xs md:text-sm font-semibold text-cyan-300 tracking-widest uppercase">
+              ⚡ AI-Powered Business Automation
+            </span>
+          </motion.div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
+            Build Smarter<br />
+            Automate Faster<br />
+            Grow Bigger
           </h2>
-          <p className="text-base text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Leverage the power of LLMs and modern tools to streamline your workflows, boost productivity, and scale your startup or business.
+
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            Leverage the power of AI, automation, modern software and cloud technology to streamline workflows, boost productivity, and scale your business.
           </p>
         </motion.div>
 
-        {/* Hub */}
-        <AIHub />
+        {/* Desktop Layout: Left | Center | Right */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center mb-20">
+          {/* Left Column - 5 Categories */}
+          <div className="lg:col-span-4 space-y-6">
+            {leftCategories.map((cat, idx) => (
+              <CategoryCard key={cat.id} category={cat} index={idx} />
+            ))}
+          </div>
 
-        {/* 10 Category Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-16">
-          {categories.map((cat, idx) => (
-            <CategoryCard
-              key={cat.id}
-              category={cat}
-              index={idx}
-              isLeft={idx < 5}
-            />
-          ))}
+          {/* Center - AI Core */}
+          <div className="lg:col-span-4 flex justify-center">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={inView ? { scale: 1, opacity: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl -m-8"
+                animate={prefersReduced.current ? {} : { scale: [0.95, 1.1, 0.95] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <motion.div
+                animate={prefersReduced.current ? {} : { y: [0, -12, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <Image
+                  src="/images/Ai-tools/11_central_ai_brain_hub.png"
+                  alt="AI Brain"
+                  width={320}
+                  height={320}
+                  priority
+                  className="relative z-10 drop-shadow-2xl"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right Column - 5 Categories */}
+          <div className="lg:col-span-4 space-y-6">
+            {rightCategories.map((cat, idx) => (
+              <CategoryCard key={cat.id} category={cat} index={5 + idx} />
+            ))}
+          </div>
         </div>
 
-        {/* Flow Row */}
+        {/* Mobile/Tablet Layout */}
+        <div className="lg:hidden space-y-12 mb-16">
+          {/* AI Core */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={inView ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.7 }}
+            className="flex justify-center"
+          >
+            <motion.div
+              className="relative"
+              animate={prefersReduced.current ? {} : { y: [0, -8, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <Image
+                src="/images/Ai-tools/11_central_ai_brain_hub.png"
+                alt="AI Brain"
+                width={240}
+                height={240}
+                priority
+                className="drop-shadow-2xl"
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Left Categories */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider text-center mb-6">
+              AI & Automation
+            </h3>
+            <div className="space-y-4">
+              {leftCategories.map((cat, idx) => (
+                <CategoryCard key={cat.id} category={cat} index={idx} />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Categories */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-purple-400 uppercase tracking-wider text-center mb-6">
+              Infrastructure & Operations
+            </h3>
+            <div className="space-y-4">
+              {rightCategories.map((cat, idx) => (
+                <CategoryCard key={cat.id} category={cat} index={5 + idx} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* End-to-End Automation Pill */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="mb-16 bg-slate-900/50 border border-amber-500/20 rounded-xl p-6 sm:p-8"
+          className="mb-16 lg:mb-20"
         >
-          <div className="text-sm font-semibold text-amber-400 mb-6 text-center">⚡ End-to-End Automation</div>
-          <div className="flex flex-col gap-4 overflow-x-auto">
-            <div className="flex gap-3 sm:gap-4 justify-center">
-              {flowSteps.map((step, idx) => (
-                <FlowStep key={step.label} step={step} index={idx} total={flowSteps.length} />
-              ))}
+          <div className="inline-flex w-full justify-center mb-8">
+            <div className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 backdrop-blur-sm">
+              <span className="text-xs md:text-sm font-semibold text-cyan-300 tracking-widest uppercase">
+                ⚡ End-to-End Automation
+              </span>
             </div>
+          </div>
+
+          {/* Workflow Steps */}
+          <div className="relative flex flex-col md:flex-row justify-center items-center gap-4 md:gap-2">
+            {flowSteps.map((step, idx) => (
+              <div key={step.label} className="relative flex-1 max-w-xs md:max-w-none">
+                <FlowStep step={step} index={idx} total={flowSteps.length} />
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Footer Outcome Chips */}
+        {/* Business Outcomes */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-center"
+          className="mb-12"
         >
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
-            {outcomes.map((outcome) => (
-              <div
-                key={outcome.label}
-                className="p-4 rounded-lg bg-gradient-to-br from-amber-500/10 to-purple-500/10 border border-amber-500/20 hover:border-amber-400/40 transition-colors"
-              >
-                <div className="text-2xl mb-2">{outcome.icon}</div>
-                <div className="font-semibold text-white text-sm">{outcome.label}</div>
-                <div className="text-xs text-slate-400">{outcome.desc}</div>
-              </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {outcomes.map((outcome, idx) => (
+              <OutcomeCard key={outcome.label} outcome={outcome} index={idx} />
             ))}
           </div>
+        </motion.div>
 
-          <p className="text-lg font-semibold text-amber-100">
+        {/* Final Tagline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="text-center"
+        >
+          <p className="text-lg md:text-xl font-bold text-white">
             AI + The Right Tools = Endless Possibilities
           </p>
         </motion.div>

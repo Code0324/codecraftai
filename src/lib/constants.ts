@@ -25,6 +25,7 @@ export interface Service {
   title: string;
   slug: string;
   shortDescription: string;
+  image?: string;
 }
 
 export const services: Service[] = [
@@ -32,51 +33,61 @@ export const services: Service[] = [
     title: 'AI Agents',
     slug: 'ai-agents',
     shortDescription: 'Autonomous AI agents that handle repetitive tasks, answer queries, and make decisions — freeing your team to focus on growth.',
+    image: '/images/services/AI Agent.png',
   },
   {
     title: 'AI Chatbots',
     slug: 'ai-chatbots',
     shortDescription: 'Intelligent chatbots that understand context and provide instant, consistent support to your customers across every channel.',
+    image: '/images/services/chatbot.png',
   },
   {
     title: 'Business Automation',
     slug: 'business-automation',
     shortDescription: 'End-to-end automation of your business workflows — from data processing to customer follow-ups — saving hours every week.',
+    image: '/images/services/ai-automation.jfif',
   },
   {
     title: 'E-Commerce Solutions',
     slug: 'ecommerce',
     shortDescription: 'Custom e-commerce platforms built for conversion, with seamless checkout and AI-powered product recommendations.',
+    image: '/images/services/ECommerce.png',
   },
   {
     title: 'Mobile Apps',
     slug: 'mobile-apps',
     shortDescription: 'Cross-platform mobile applications built with React Native and Expo — one codebase for iOS and Android.',
+    image: '/images/services/mob-app.jfif',
   },
   {
     title: 'Custom Dashboards',
     slug: 'custom-dashboards',
     shortDescription: 'Real-time dashboards that turn raw data into actionable insights with interactive charts, filters, and role-based access.',
+    image: '/images/services/custom-dashboard.jfif',
   },
   {
     title: 'CRM Systems',
     slug: 'crm',
     shortDescription: 'Tailored CRM solutions that help you manage leads, track interactions, automate follow-ups, and close deals faster.',
+    image: '/images/services/crm.png',
   },
   {
     title: 'n8n Automation',
     slug: 'n8n-automation',
     shortDescription: 'Self-hosted automation workflows using n8n — connect any tool, trigger any action, on your own infrastructure.',
+    image: '/images/services/n8n-automation.png',
   },
   {
     title: 'Portfolio Websites',
     slug: 'portfolio',
     shortDescription: 'Modern portfolio websites with smooth animations and fast performance that showcase your work and attract clients.',
+    image: '/images/services/portfolio.jfif',
   },
   {
     title: 'SaaS & AI Products',
     slug: 'saas-ai',
     shortDescription: 'Full-stack SaaS products with AI capabilities — from concept to deployment, including auth, payments, and scaling.',
+    image: '/images/services/saas-ai.png',
   },
 ];
 
