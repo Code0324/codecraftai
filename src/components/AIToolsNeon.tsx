@@ -2,365 +2,352 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import {
+  SiOpenai, SiAnthropic, SiGoogle, SiMeta, SiMistral,
+  SiGithub, SiReplit, SiVercel, SiDocker,
+  SiAmazonaws, SiGooglecloud, SiMicrosoft,
+  SiSlack, SiNotion, SiShopify, SiHubspot, SiSalesforce
+} from 'react-icons/si';
+import {
+  Bot, Zap, Code2, Megaphone, Cloud, Database, Users, DollarSign, ShoppingCart, Workflow, ArrowRight
+} from 'lucide-react';
 
-interface Tool {
-  name: string;
-  symbol: string;
-  from: string;
-  to: string;
-  glow: string;
+interface Category {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  tools: string[];
 }
 
-/* ─── Tools organised into 3 orbital rings ──────────────────── */
-const innerTools: Tool[] = [
-  { name: 'Claude',      symbol: '✦', from: '#92400e', to: '#fb923c', glow: '#f97316' },
-  { name: 'Claude Code', symbol: '⌨', from: '#7c2d12', to: '#f97316', glow: '#fb923c' },
-  { name: 'Lovable',     symbol: '♥', from: '#4c0519', to: '#ec4899', glow: '#f472b6' },
-  { name: 'ChatGPT',     symbol: '⬡', from: '#064e3b', to: '#10b981', glow: '#10b981' },
+const categories: Category[] = [
+  {
+    id: 'llms',
+    title: 'LLMs & AI Models',
+    icon: <SiOpenai className="w-6 h-6" />,
+    tools: ['ChatGPT', 'Claude', 'Gemini', 'Llama', 'Mistral'],
+  },
+  {
+    id: 'agents',
+    title: 'AI Agents & Assistants',
+    icon: <Bot className="w-6 h-6" />,
+    tools: ['Research', 'Analyze', 'Create', 'Plan', 'Execute'],
+  },
+  {
+    id: 'automation',
+    title: 'Automation & Workflows',
+    icon: <Workflow className="w-6 h-6" />,
+    tools: ['Zapier', 'Make', 'n8n', 'Pabbly', 'API'],
+  },
+  {
+    id: 'dev',
+    title: 'Development & Coding',
+    icon: <Code2 className="w-6 h-6" />,
+    tools: ['GitHub', 'Replit', 'Cursor', 'Devin', 'Copilot'],
+  },
+  {
+    id: 'content',
+    title: 'Content & Marketing',
+    icon: <Megaphone className="w-6 h-6" />,
+    tools: ['Copywriting', 'SEO', 'Social Media', 'Design', 'Video'],
+  },
+  {
+    id: 'cloud',
+    title: 'Cloud & Infrastructure',
+    icon: <Cloud className="w-6 h-6" />,
+    tools: ['AWS', 'Azure', 'Google Cloud', 'Oracle', 'Docker'],
+  },
+  {
+    id: 'data',
+    title: 'Data & Analytics',
+    icon: <Database className="w-6 h-6" />,
+    tools: ['BigQuery', 'Snowflake', 'Power BI', 'Looker', 'Databricks'],
+  },
+  {
+    id: 'productivity',
+    title: 'Productivity & Collaboration',
+    icon: <Users className="w-6 h-6" />,
+    tools: ['Slack', 'Notion', 'Microsoft 365', 'Google Workspace', 'Figma'],
+  },
+  {
+    id: 'sales',
+    title: 'Sales & CRM',
+    icon: <DollarSign className="w-6 h-6" />,
+    tools: ['HubSpot', 'Salesforce', 'Pipedrive', 'ActiveCampaign', 'Close'],
+  },
+  {
+    id: 'ecommerce',
+    title: 'E-Commerce & Operations',
+    icon: <ShoppingCart className="w-6 h-6" />,
+    tools: ['Shopify', 'WooCommerce', 'Inventory', 'Payments', 'Shipping'],
+  },
 ];
 
-const middleTools: Tool[] = [
-  { name: 'Cursor',     symbol: '▶',  from: '#0f172a', to: '#2563eb', glow: '#60a5fa' },
-  { name: 'Midjourney', symbol: 'Mj', from: '#171717', to: '#525252', glow: '#a3a3a3' },
-  { name: 'n8n',        symbol: '⬡',  from: '#4c0519', to: '#f43f5e', glow: '#fb7185' },
-  { name: 'Jasper AI',  symbol: 'J',  from: '#7c2d12', to: '#fb923c', glow: '#fdba74' },
-  { name: 'Gamma',      symbol: 'γ',  from: '#3b0764', to: '#a855f7', glow: '#c084fc' },
-  { name: 'Perplexity', symbol: '❋',  from: '#0f172a', to: '#475569', glow: '#94a3b8' },
+const flowSteps = [
+  { label: 'Discover', desc: 'Ideas & Research' },
+  { label: 'Plan', desc: 'Strategy & Tasks' },
+  { label: 'Build', desc: 'Content, Code, Systems' },
+  { label: 'Execute', desc: 'Automate & Deploy' },
+  { label: 'Grow', desc: 'Scale & Optimize' },
 ];
 
-const outerTools: Tool[] = [
-  { name: 'Nano Banana', symbol: '🍌', from: '#713f12', to: '#facc15', glow: '#fde047' },
-  { name: 'Kling AI',    symbol: '▶',  from: '#4a044e', to: '#a855f7', glow: '#c084fc' },
-  { name: 'HeyGen',      symbol: '◉',  from: '#1e3a5f', to: '#3b82f6', glow: '#93c5fd' },
-  { name: 'OpenAI SDK',  symbol: '⬡',  from: '#064e3b', to: '#059669', glow: '#34d399' },
-  { name: 'Notion AI',   symbol: 'N',  from: '#262626', to: '#737373', glow: '#d4d4d4' },
-  { name: 'Retell AI',   symbol: '🎙', from: '#042f2e', to: '#0d9488', glow: '#2dd4bf' },
+const outcomes = [
+  { icon: '🚀', label: 'Startups', desc: 'Launch faster' },
+  { icon: '💼', label: 'Businesses', desc: 'Work smarter' },
+  { icon: '👥', label: 'Teams', desc: 'Be more productive' },
+  { icon: '📈', label: 'Growth', desc: 'Achieve more' },
 ];
 
-const ICON_SIZE = 50;
-
-/* ─── Individual tool icon ──────────────────────────────────── */
-function ToolIcon({ tool }: { tool: Tool }) {
-  const [hovered, setHovered] = useState(false);
-
+/* ─── Animated Hub ──────────────────────────────────────────── */
+function AIHub() {
   return (
-    <div
-      style={{ width: ICON_SIZE, height: ICON_SIZE, position: 'relative', cursor: 'default' }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <motion.div
+      className="relative w-32 h-32 mx-auto mb-12"
+      initial={{ scale: 0.8, opacity: 0 }}
+      whileInView={{ scale: 1, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
     >
-      {/* Icon tile */}
-      <div
-        style={{
-          width: ICON_SIZE,
-          height: ICON_SIZE,
-          borderRadius: 14,
-          background: `linear-gradient(135deg, ${tool.from}, ${tool.to})`,
-          boxShadow: hovered
-            ? `0 0 22px ${tool.glow}90, 0 0 8px ${tool.glow}50`
-            : `0 0 10px ${tool.glow}40`,
-          border: '1px solid rgba(255,255,255,0.13)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-          transform: hovered ? 'scale(1.18)' : 'scale(1)',
-          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-        }}
-      >
-        {/* Glass shine */}
-        <div
+      {/* Pulsing glow background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-purple-500/20 rounded-full blur-3xl"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 3, repeat: Infinity }}
+      />
+
+      {/* Rotating border ring */}
+      <motion.div
+        className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-amber-500 to-purple-500 bg-clip-border"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        style={{ padding: '2px' }}
+      />
+
+      {/* Central hub */}
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-purple-600 rounded-full flex items-center justify-center border border-amber-400/30">
+        <motion.div
+          animate={{ y: [-2, 2, -2] }}
+          transition={{ duration: 3, repeat: Infinity }}
+          className="text-center"
+        >
+          <div className="text-4xl font-black text-white">AI</div>
+          <div className="text-xs text-amber-100 font-semibold mt-1">Core</div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── Category Card ──────────────────────────────────────────– */
+function CategoryCard({ category, index, isLeft }: { category: Category; index: number; isLeft: boolean }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      whileHover={{ y: -8 }}
+      className="group relative h-full"
+    >
+      {/* Card */}
+      <div className="relative p-6 rounded-xl bg-gradient-to-br from-slate-900/50 to-slate-950/50 border border-amber-500/20 hover:border-amber-400/40 transition-all duration-300 h-full flex flex-col">
+        {/* Hover glow */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-amber-500/0 to-purple-500/0 group-hover:from-amber-500/10 group-hover:to-purple-500/10 transition-all duration-300 pointer-events-none" />
+
+        {/* Icon with animation */}
+        <motion.div
+          className="mb-4 text-amber-400 flex-shrink-0"
+          animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+          transition={{ duration: 4, repeat: Infinity, delay: index * 0.2 }}
+        >
+          {category.icon}
+        </motion.div>
+
+        {/* Title */}
+        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">
+          {category.title}
+        </h3>
+
+        {/* Tools list */}
+        <div className="flex-grow">
+          <div className="flex flex-wrap gap-2">
+            {category.tools.map((tool, i) => (
+              <motion.span
+                key={tool}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 + i * 0.05 }}
+                className="text-xs bg-amber-600/20 text-amber-200 px-2 py-1 rounded border border-amber-500/30"
+              >
+                {tool}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+
+        {/* Border gradient on hover */}
+        <motion.div
+          className="absolute inset-0 rounded-xl pointer-events-none"
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
           style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, rgba(255,255,255,0.18) 0%, transparent 55%)',
-            borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(251,146,60,0.2) 0%, rgba(139,92,246,0.2) 100%)',
           }}
         />
-        <span
-          style={{
-            fontSize: 18,
-            color: 'white',
-            fontWeight: 'bold',
-            position: 'relative',
-            zIndex: 1,
-            lineHeight: 1,
-            userSelect: 'none',
-          }}
-        >
-          {tool.symbol}
-        </span>
       </div>
+    </motion.div>
+  );
+}
 
-      {/* Tooltip */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '115%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(5,8,22,0.95)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: 6,
-          padding: '3px 8px',
-          fontSize: 11,
-          color: '#e2e8f0',
-          whiteSpace: 'nowrap',
-          pointerEvents: 'none',
-          opacity: hovered ? 1 : 0,
-          transition: 'opacity 0.15s',
-          zIndex: 50,
-        }}
+/* ─── Flow Step ──────────────────────────────────────────────– */
+function FlowStep({ step, index, total }: { step: typeof flowSteps[0]; index: number; total: number }) {
+  return (
+    <div className="flex items-center gap-2 sm:gap-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1, duration: 0.4 }}
+        className="flex-shrink-0"
       >
-        {tool.name}
-      </div>
+        <div className="relative">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-500 to-purple-600 flex items-center justify-center border border-amber-400/30 group">
+            <div className="text-center">
+              <div className="text-xs sm:text-sm font-bold text-white">{step.label}</div>
+              <div className="text-xs text-amber-100">{step.desc.split('&')[0]}</div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {index < total - 1 && (
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1 + 0.1, duration: 0.5 }}
+          className="flex-grow hidden sm:flex items-center origin-left"
+        >
+          <div className="w-full h-0.5 bg-gradient-to-r from-amber-500 to-purple-600" />
+          <ArrowRight className="w-4 h-4 text-amber-400 -ml-2 flex-shrink-0" />
+        </motion.div>
+      )}
     </div>
   );
 }
 
-/* ─── One orbital ring ──────────────────────────────────────── */
-function OrbitalRing({
-  tools,
-  radius,
-  speed,
-  containerSize,
-  direction = 'cw',
-}: {
-  tools: Tool[];
-  radius: number;
-  speed: number;
-  containerSize: number;
-  direction?: 'cw' | 'ccw';
-}) {
-  const [paused, setPaused] = useState(false);
-  const center = containerSize / 2;
-  const ringAnim    = direction === 'cw' ? 'orbit-cw'    : 'orbit-ccw';
-  const counterAnim = direction === 'cw' ? 'counter-cw'  : 'counter-ccw';
-
-  return (
-    <>
-      {/* Decorative orbit path */}
-      <div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          width: radius * 2,
-          height: radius * 2,
-          left: center - radius,
-          top: center - radius,
-          border: '1px solid rgba(255,255,255,0.07)',
-        }}
-      />
-
-      {/* Rotating ring container — same size as the outer container */}
-      <div
-        className="absolute inset-0"
-        style={{
-          animation: `${ringAnim} ${speed}s linear infinite`,
-          animationPlayState: paused ? 'paused' : 'running',
-        }}
-      >
-        {tools.map((tool, i) => {
-          // Evenly space tools starting from the top (-90°)
-          const angleDeg = -90 + (360 / tools.length) * i;
-          const angleRad = (angleDeg * Math.PI) / 180;
-          const lx = center + radius * Math.cos(angleRad) - ICON_SIZE / 2;
-          const ly = center + radius * Math.sin(angleRad) - ICON_SIZE / 2;
-
-          return (
-            <div
-              key={tool.name}
-              style={{
-                position: 'absolute',
-                left: lx,
-                top: ly,
-                width: ICON_SIZE,
-                height: ICON_SIZE,
-              }}
-              onMouseEnter={() => setPaused(true)}
-              onMouseLeave={() => setPaused(false)}
-            >
-              {/* Counter-rotate so the logo stays upright */}
-              <div
-                style={{
-                  animation: `${counterAnim} ${speed}s linear infinite`,
-                  animationPlayState: paused ? 'paused' : 'running',
-                }}
-              >
-                <ToolIcon tool={tool} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
-}
-
-/* ─── Responsive container dimensions ──────────────────────── */
-function useOrbitalSize() {
-  const [cfg, setCfg] = useState({ containerSize: 620, radii: [108, 198, 288] as [number, number, number] });
-
-  useEffect(() => {
-    function update() {
-      const w = window.innerWidth;
-      if (w < 480) {
-        setCfg({ containerSize: 320, radii: [58, 103, 146] });
-      } else if (w < 768) {
-        setCfg({ containerSize: 420, radii: [76, 138, 194] });
-      } else if (w < 1024) {
-        setCfg({ containerSize: 520, radii: [92, 168, 238] });
-      } else {
-        setCfg({ containerSize: 620, radii: [108, 198, 288] });
-      }
-    }
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-
-  return cfg;
-}
-
-/* ─── Main section ──────────────────────────────────────────── */
+/* ─── Main Section ──────────────────────────────────────────── */
 export default function AIToolsNeon() {
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: '-80px' });
-  const { containerSize, radii } = useOrbitalSize();
-  const orbSize = Math.max(60, Math.round(containerSize * 0.122));
+  const inView = useInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
     <section
       ref={sectionRef}
-      style={{ background: '#030a1c' }}
-      className="relative py-24 lg:py-32 overflow-hidden"
+      className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-950/95 to-slate-950"
     >
-      {/* CSS keyframes for orbital rotation */}
       <style>{`
-        @keyframes orbit-cw    { from { transform: rotate(0deg);    } to { transform: rotate(360deg);   } }
-        @keyframes orbit-ccw   { from { transform: rotate(0deg);    } to { transform: rotate(-360deg);  } }
-        @keyframes counter-cw  { from { transform: rotate(0deg);    } to { transform: rotate(-360deg);  } }
-        @keyframes counter-ccw { from { transform: rotate(0deg);    } to { transform: rotate(360deg);   } }
-        @keyframes orb-pulse   {
-          0%, 100% { box-shadow: 0 0 40px rgba(79,142,247,0.55), 0 0 80px rgba(124,58,237,0.28); }
-          50%      { box-shadow: 0 0 65px rgba(79,142,247,0.80), 0 0 120px rgba(124,58,237,0.48); }
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
         }
       `}</style>
 
-      {/* Background radial glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% 55%, rgba(88,28,135,0.13) 0%, transparent 70%)',
-        }}
-      />
+      {/* Background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute -top-40 -right-40 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl"
+          animate={{ y: [-20, 20, -20], x: [-10, 10, -10] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"
+          animate={{ y: [20, -20, 20], x: [10, -10, 10] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+      </div>
 
-      {/* Section header */}
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-10 px-4 relative z-10"
-      >
-        <span className="text-sm font-semibold text-blue-400 tracking-widest uppercase">
-          Powered By
-        </span>
-        <h2
-          className="heading-font font-bold mt-3 text-white"
-          style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-6"
         >
-          Our{' '}
-          <em
-            className="not-italic font-extrabold"
-            style={{
-              background: 'linear-gradient(90deg, #f59e0b, #fbbf24)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            AI
-          </em>{' '}
-          Tool Stack
-        </h2>
-        <div className="section-underline" />
-        <p className="text-slate-400 mt-6 max-w-xl mx-auto text-base leading-relaxed">
-          The world&apos;s best AI tools powering every layer of your project
-        </p>
-      </motion.div>
-
-      {/* Orbital system */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.82 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 0.9, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="relative mx-auto"
-        style={{ width: containerSize, height: containerSize }}
-      >
-        {/* Center AI orb */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: orbSize,
-            height: orbSize,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #4F8EF7 0%, #7C3AED 55%, #06B6D4 100%)',
-            animation: 'orb-pulse 3s ease-in-out infinite',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 10,
-            border: '2px solid rgba(255,255,255,0.18)',
-          }}
-        >
-          <span
-            style={{
-              color: 'white',
-              fontWeight: 900,
-              fontSize: orbSize * 0.34,
-              fontFamily: 'Outfit, sans-serif',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            AI
+          <span className="text-sm font-semibold text-amber-400 tracking-widest uppercase">
+            ⚡ AI-Powered Automation
           </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-3 mb-4 heading-font">
+            Build Smarter · Automate Faster · Grow Bigger
+          </h2>
+          <p className="text-base text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            Leverage the power of LLMs and modern tools to streamline your workflows, boost productivity, and scale your startup or business.
+          </p>
+        </motion.div>
+
+        {/* Hub */}
+        <AIHub />
+
+        {/* 10 Category Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-16">
+          {categories.map((cat, idx) => (
+            <CategoryCard
+              key={cat.id}
+              category={cat}
+              index={idx}
+              isLeft={idx < 5}
+            />
+          ))}
         </div>
 
-        {/* Ring 1 — inner, clockwise, fastest */}
-        <OrbitalRing
-          tools={innerTools}
-          radius={radii[0]}
-          speed={20}
-          containerSize={containerSize}
-          direction="cw"
-        />
+        {/* Flow Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mb-16 bg-slate-900/50 border border-amber-500/20 rounded-xl p-6 sm:p-8"
+        >
+          <div className="text-sm font-semibold text-amber-400 mb-6 text-center">⚡ End-to-End Automation</div>
+          <div className="flex flex-col gap-4 overflow-x-auto">
+            <div className="flex gap-3 sm:gap-4 justify-center">
+              {flowSteps.map((step, idx) => (
+                <FlowStep key={step.label} step={step} index={idx} total={flowSteps.length} />
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-        {/* Ring 2 — middle, counter-clockwise */}
-        <OrbitalRing
-          tools={middleTools}
-          radius={radii[1]}
-          speed={34}
-          containerSize={containerSize}
-          direction="ccw"
-        />
+        {/* Footer Outcome Chips */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="text-center"
+        >
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+            {outcomes.map((outcome) => (
+              <div
+                key={outcome.label}
+                className="p-4 rounded-lg bg-gradient-to-br from-amber-500/10 to-purple-500/10 border border-amber-500/20 hover:border-amber-400/40 transition-colors"
+              >
+                <div className="text-2xl mb-2">{outcome.icon}</div>
+                <div className="font-semibold text-white text-sm">{outcome.label}</div>
+                <div className="text-xs text-slate-400">{outcome.desc}</div>
+              </div>
+            ))}
+          </div>
 
-        {/* Ring 3 — outer, clockwise, slowest */}
-        <OrbitalRing
-          tools={outerTools}
-          radius={radii[2]}
-          speed={50}
-          containerSize={containerSize}
-          direction="cw"
-        />
-      </motion.div>
-
-      {/* Hint */}
-      <p className="text-center text-slate-600 text-xs mt-4 tracking-wide relative z-10">
-        Hover any tool to pause its orbit
-      </p>
+          <p className="text-lg font-semibold text-amber-100">
+            AI + The Right Tools = Endless Possibilities
+          </p>
+        </motion.div>
+      </div>
     </section>
   );
 }
