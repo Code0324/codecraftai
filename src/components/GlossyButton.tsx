@@ -13,6 +13,7 @@ interface GlossyButtonProps {
   className?: string;
   type?: 'button' | 'submit';
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 const sizeClasses = {
@@ -30,12 +31,14 @@ export default function GlossyButton({
   className = '',
   type = 'button',
   fullWidth = false,
+  disabled = false,
 }: GlossyButtonProps) {
   const baseClasses = variant === 'primary'
     ? 'btn-primary'
     : 'btn-ghost';
 
-  const classes = `${baseClasses} ${sizeClasses[size]} ${fullWidth ? 'w-full justify-center' : ''} ${className}`;
+  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
+  const classes = `${baseClasses} ${sizeClasses[size]} ${fullWidth ? 'w-full justify-center' : ''} ${disabledClasses} ${className}`;
 
   const content = (
     <>
@@ -53,7 +56,7 @@ export default function GlossyButton({
   }
 
   return (
-    <button type={type} onClick={onClick} className={`group ${classes}`}>
+    <button type={type} onClick={onClick} disabled={disabled} className={`group ${classes}`}>
       {content}
     </button>
   );
