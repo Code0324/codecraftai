@@ -22,7 +22,7 @@ export default function ProjectCard({ project, isActive, index }: ProjectCardPro
       className="marquee-slide min-w-0"
     >
       <div
-        className="group relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[24px] transition-all duration-500 ease-out flex flex-col h-[430px] md:h-[480px] lg:h-[520px]"
+        className="group relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[24px] transition-all duration-500 ease-out flex flex-col h-[500px] md:h-[580px] lg:h-[640px] pt-4 md:pt-6 lg:pt-8"
         style={{
           background: 'rgba(255,255,255,0.04)',
           border: '1px solid rgba(255,255,255,0.08)',
@@ -50,8 +50,8 @@ export default function ProjectCard({ project, isActive, index }: ProjectCardPro
           el.style.borderColor = 'rgba(255,255,255,0.08)'
         }}
       >
-        {/* ── Browser Mockup (~68%) ── */}
-        <div className="flex flex-col min-h-0" style={{ flex: '2.1 1 0%' }}>
+        {/* ── Browser Mockup (~65%) ── */}
+        <div className="flex flex-col min-h-0" style={{ flex: '2.0 1 0%' }}>
           {/* Browser toolbar */}
           <div
             className="flex items-center gap-1.5 px-4 py-[10px] shrink-0"
