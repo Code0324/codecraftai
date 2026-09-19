@@ -1,0 +1,76 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { services, featuredServiceSlugs } from '@/lib/constants';
+import GlossyButton from './GlossyButton';
+
+const featured = services.filter((s) => featuredServiceSlugs.includes(s.slug));
+
+export default function FeaturedServices() {
+  return (
+    <section id="services" className="py-24 relative bg-[#0a0b0f]">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-sm font-semibold text-[#06B6D4] tracking-widest uppercase"
+          >
+            What We Do
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="text-3xl md:text-5xl font-bold mt-3 mb-4 heading-font"
+          >
+            Our <span className="text-gradient">Services</span>
+          </motion.h2>
+          <div className="section-underline mx-auto" />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-lg text-slate-400 max-w-2xl mx-auto mt-6"
+          >
+            From AI agents to full-stack web apps — we deliver solutions that solve real business problems.
+          </motion.p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+          {featured.map((service, i) => (
+            <motion.div
+              key={service.slug}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="glass-card rounded-2xl p-6 border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300"
+            >
+              <h3 className="text-lg font-bold text-white mb-2 heading-font">{service.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{service.shortDescription}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Link href="/services">
+            <GlossyButton variant="ghost" size="lg">
+              Explore All Services
+            </GlossyButton>
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
