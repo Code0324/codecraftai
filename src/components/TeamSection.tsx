@@ -1,62 +1,16 @@
 'use client';
 
-import { useState, CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
+import Image from 'next/image';
 import { motion, MotionConfig } from 'framer-motion';
 import { team, type TeamMember } from '@/lib/constants';
 
-/* ─── Central Hub Content ──────────────────────────────────── */
-function TeamHub() {
-  return (
-    <div className="text-center">
-      <motion.span
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1, duration: 0.6 }}
-        className="inline-block text-[11px] font-semibold text-cyan-300/80 tracking-[0.24em] uppercase"
-      >
-        The Team
-      </motion.span>
-
-      <motion.h2
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.18, duration: 0.7 }}
-        className="heading-font font-bold text-white mt-4"
-        style={{ fontSize: 'clamp(34px, 4.2vw, 54px)', lineHeight: 1.08, letterSpacing: '-0.02em' }}
-      >
-        Meet <span className="text-gradient">Our Team</span>
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.26, duration: 0.7 }}
-        className="heading-font font-medium text-slate-200 mt-4 text-lg lg:text-xl"
-      >
-        Trusted AI Engineers,
-        <br />
-        Developers &amp; Designers
-      </motion.p>
-
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.34, duration: 0.7 }}
-        className="text-slate-400 mt-3 text-sm leading-relaxed max-w-sm mx-auto"
-      >
-        Building modern AI solutions for startups and businesses worldwide — intelligent
-        products, engineered end to end.
-      </motion.p>
-    </div>
-  );
-}
+/* ─── Get CEO and surrounding team ──────────────────────────── */
+const ceo = team.find((m) => m.role.includes('CEO'));
+const surroundingTeam = team.filter((m) => !m.role.includes('CEO')).slice(0, 6);
 
 /* ─── Circular Orbit Guide (SVG backdrop) ──────────────────── */
-function OrbitGuide({ radius }: { radius: number }) {
+function OrbitGuide() {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none"
@@ -64,10 +18,9 @@ function OrbitGuide({ radius }: { radius: number }) {
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
-      {/* Central glow */}
       <defs>
         <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#4F8EF7" stopOpacity="0.2" />
+          <stop offset="0%" stopColor="#4F8EF7" stopOpacity="0.15" />
           <stop offset="100%" stopColor="#06B6D4" stopOpacity="0" />
         </radialGradient>
       </defs>
@@ -76,42 +29,81 @@ function OrbitGuide({ radius }: { radius: number }) {
       <circle
         cx="500"
         cy="500"
-        r={radius}
+        r="320"
         fill="none"
         stroke="#4F8EF7"
         strokeWidth="1.5"
         strokeDasharray="8 12"
-        opacity="0.25"
+        opacity="0.2"
       />
 
       {/* Center glow */}
-      <circle cx="500" cy="500" r="80" fill="url(#hubGlow)" />
+      <circle cx="500" cy="500" r="120" fill="url(#hubGlow)" />
     </svg>
+  );
+}
+
+/* ─── Glass Shield Circle (Image + Name) ──────────────────── */
+function GlassShieldCircle({
+  member,
+  isCenter = false,
+}: {
+  member: TeamMember;
+  isCenter?: boolean;
+}) {
+  const size = isCenter ? 'w-40 h-40 md:w-48 md:h-48' : 'w-24 h-24 md:w-28 md:h-28';
+  const textSize = isCenter ? 'text-sm md:text-base' : 'text-xs md:text-sm';
+  const nameSize = isCenter ? 'text-lg md:text-xl' : 'text-xs md:text-sm';
+
+  return (
+    <motion.div
+      className={`${size} relative rounded-full border border-white/20 hover:border-[#4F8EF7]/60 transition-all duration-300 cursor-pointer overflow-hidden group flex-shrink-0`}
+      whileHover={{ scale: isCenter ? 1.08 : 1.12 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {/* Image */}
+      {member.image && (
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-300"
+          unoptimized
+        />
+      )}
+
+      {/* Gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-60" />
+
+      {/* Name + Role overlay (bottom) */}
+      <div className="absolute bottom-0 inset-x-0 p-2 md:p-3 text-center text-white">
+        <div className={`heading-font font-bold ${nameSize} leading-tight`}>
+          {member.name}
+        </div>
+        {!isCenter && (
+          <div className={`text-cyan-300/80 ${textSize} leading-tight mt-0.5`}>
+            {member.role}
+          </div>
+        )}
+      </div>
+    </motion.div>
   );
 }
 
 /* ─── Desktop/Tablet: Circular Orbit ──────────────────────── */
 function DesktopOrbit() {
-  const radius = 280; // SVG units from center
-  const nodeSize = 100; // width/height of each node
+  if (!ceo) return null;
 
   return (
-    <div className="relative w-full aspect-square max-w-2xl mx-auto">
-      <OrbitGuide radius={radius} />
+    <div className="relative w-full aspect-square max-w-4xl mx-auto">
+      <OrbitGuide />
 
-      {/* Center content */}
-      <div className="absolute inset-0 flex items-center justify-center z-20">
-        <div className="w-64 text-center pointer-events-auto">
-          <TeamHub />
-        </div>
-      </div>
-
-      {/* Orbiting team members */}
+      {/* Rotating ring with CEO center + surrounding team */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-0 flex items-center justify-center"
         animate={{ rotate: 360 }}
         transition={{
-          duration: 45,
+          duration: 60,
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -119,46 +111,33 @@ function DesktopOrbit() {
           transformOrigin: '50% 50%',
         } as CSSProperties}
       >
-        {team.map((member, i) => {
-          const angle = (i / team.length) * 360;
-          const x = 50 + 40 * Math.cos((angle - 90) * (Math.PI / 180));
-          const y = 50 + 40 * Math.sin((angle - 90) * (Math.PI / 180));
+        {/* Central CEO circle (large, at center) */}
+        <div className="absolute">
+          <GlassShieldCircle member={ceo} isCenter={true} />
+        </div>
+
+        {/* Surrounding team members (6 positions around orbit) */}
+        {surroundingTeam.map((member, i) => {
+          const angle = (i / surroundingTeam.length) * 360;
+          const radius = 280; // distance from center in SVG units
+          const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
+          const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
           return (
             <motion.div
               key={member.name}
-              className="absolute w-24 h-24 md:w-28 md:h-28"
+              className="absolute"
               style={{
-                left: `${x}%`,
-                top: `${y}%`,
-                transform: 'translate(-50%, -50%)',
+                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
               } as CSSProperties}
               animate={{ rotate: -360 }}
               transition={{
-                duration: 45,
+                duration: 60,
                 repeat: Infinity,
                 ease: 'linear',
               }}
             >
-              <motion.div
-                className="group w-full h-full rounded-full border border-white/10 hover:border-[#4F8EF7]/40 transition-all duration-300 cursor-pointer flex items-center justify-center bg-gradient-to-br from-blue-500/5 to-purple-600/5 backdrop-blur-sm overflow-hidden"
-                whileHover={{ scale: 1.1, borderColor: '#4F8EF7' }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {/* Initials fallback */}
-                <div className="flex flex-col items-center justify-center h-full text-center px-2">
-                  <div className="heading-font font-bold text-white text-xs md:text-sm leading-tight">
-                    {member.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')
-                      .slice(0, 2)}
-                  </div>
-                  <div className="text-cyan-300/70 text-[9px] md:text-[10px] mt-1 leading-tight max-w-full break-words">
-                    {member.role}
-                  </div>
-                </div>
-              </motion.div>
+              <GlassShieldCircle member={member} />
             </motion.div>
           );
         })}
@@ -169,39 +148,74 @@ function DesktopOrbit() {
 
 /* ─── Mobile: Static Grid ──────────────────────────────────── */
 function MobileGrid() {
+  if (!ceo) return null;
+
   return (
-    <div className="space-y-8">
-      <div className="px-6">
-        <TeamHub />
+    <div className="space-y-8 px-6 pb-6">
+      {/* CEO featured card */}
+      <div className="text-center">
+        <div className="inline-block mb-4">
+          <GlassShieldCircle member={ceo} isCenter={true} />
+        </div>
+        <h3 className="text-lg font-bold text-white heading-font">{ceo.name}</h3>
+        <p className="text-[#4F8EF7] text-sm font-medium">{ceo.role}</p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-6 pb-6">
-        {team.map((member) => (
+      {/* Team grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        {surroundingTeam.map((member) => (
           <motion.div
             key={member.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="group rounded-2xl border border-white/10 hover:border-[#4F8EF7]/40 transition-all duration-300 cursor-pointer bg-gradient-to-br from-blue-500/5 to-purple-600/5 backdrop-blur-sm overflow-hidden p-4 flex flex-col items-center justify-center min-h-[140px]"
+            className="flex flex-col items-center text-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="heading-font font-bold text-white text-sm text-center">
-              {member.name
-                .split(' ')
-                .map((n) => n[0])
-                .join('')
-                .slice(0, 2)}
+            <div className="mb-2">
+              <GlassShieldCircle member={member} />
             </div>
-            <div className="text-cyan-300/70 text-xs mt-2 text-center leading-tight">
-              {member.role}
-            </div>
-            <div className="text-slate-300 text-[11px] mt-2 text-center line-clamp-2">
-              {member.name}
-            </div>
+            <h4 className="text-xs font-bold text-white heading-font line-clamp-2">{member.name}</h4>
+            <p className="text-cyan-300/70 text-[10px] mt-1 line-clamp-2">{member.role}</p>
           </motion.div>
         ))}
       </div>
+    </div>
+  );
+}
+
+/* ─── Section Header ──────────────────────────────────────── */
+function TeamHeader() {
+  return (
+    <div className="text-center mb-16 px-6">
+      <motion.span
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="inline-block text-sm font-semibold text-cyan-300/80 tracking-widest uppercase"
+      >
+        Our Team
+      </motion.span>
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.05 }}
+        className="text-4xl md:text-5xl font-bold mt-4 mb-4 heading-font"
+      >
+        Meet <span className="text-gradient">Our Team</span>
+      </motion.h2>
+      <div className="section-underline mx-auto" />
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+        className="text-lg text-slate-400 max-w-2xl mx-auto mt-6"
+      >
+        Trusted AI Engineers, Developers &amp; Designers building modern AI solutions worldwide.
+      </motion.p>
     </div>
   );
 }
@@ -210,25 +224,29 @@ function MobileGrid() {
 export default function TeamSection() {
   return (
     <MotionConfig reducedMotion="user">
-      <section id="team" className="relative overflow-hidden py-24 md:py-32" style={{ background: '#050816' }}>
+      <section id="team" className="relative overflow-hidden py-24 md:py-40" style={{ background: '#050816' }}>
         {/* Ambient glows */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[720px] h-[360px] rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at center, rgba(79,142,247,0.07), transparent 70%)' }}
         />
         <div
-          className="absolute bottom-0 left-0 w-96 h-96 rounded-full pointer-events-none"
+          className="absolute bottom-0 right-0 w-96 h-96 rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.05), transparent 70%)' }}
         />
 
-        {/* Desktop/Tablet: Circular Orbit */}
-        <div className="hidden md:block relative z-10 container mx-auto px-6">
-          <DesktopOrbit />
-        </div>
+        <div className="relative z-10 container mx-auto px-6">
+          <TeamHeader />
 
-        {/* Mobile: Static Grid */}
-        <div className="md:hidden relative z-10">
-          <MobileGrid />
+          {/* Desktop: Circular Orbit */}
+          <div className="hidden md:flex justify-center">
+            <DesktopOrbit />
+          </div>
+
+          {/* Mobile: Static Grid */}
+          <div className="md:hidden">
+            <MobileGrid />
+          </div>
         </div>
       </section>
     </MotionConfig>
