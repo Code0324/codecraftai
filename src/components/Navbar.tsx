@@ -1,19 +1,23 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import GlossyButton from './GlossyButton';
 
-const links = ['About', 'Process', 'Services', 'Projects', 'Pricing', 'FAQ'];
+const links = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Team', href: '/team' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Contact', href: '/contact' },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  function scrollTo(id: string) {
-    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth' });
-    setIsOpen(false);
-  }
+  const pathname = usePathname();
 
   return (
     <nav
@@ -40,25 +44,26 @@ export default function Navbar() {
 
         <div className="hidden lg:flex items-center gap-8 bg-white/5 px-6 py-2 rounded-full border border-white/5">
           {links.map((l) => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
-              className="text-slate-300 text-sm font-medium hover:text-white transition-colors relative group"
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`text-sm font-medium transition-colors relative group ${
+                pathname === l.href ? 'text-white' : 'text-slate-300 hover:text-white'
+              }`}
             >
-              {l}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#4F8EF7] to-[#7C3AED] transition-all duration-300 group-hover:w-full" />
-            </a>
+              {l.label}
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#4F8EF7] to-[#7C3AED] transition-all duration-300 ${
+                pathname === l.href ? 'w-full' : 'w-0 group-hover:w-full'
+              }`} />
+            </Link>
           ))}
         </div>
 
         <div className="flex items-center gap-3">
           <div className="hidden sm:block">
-            <GlossyButton
-              size="sm"
-              onClick={() => scrollTo('contact')}
-            >
-              Book a Call
-            </GlossyButton>
+            <Link href="/contact">
+              <GlossyButton size="sm">Book a Call</GlossyButton>
+            </Link>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -77,19 +82,23 @@ export default function Navbar() {
           style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
         >
           {links.map((l) => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
+            <Link
+              key={l.href}
+              href={l.href}
               onClick={() => setIsOpen(false)}
-              className="text-slate-300 text-sm font-medium hover:text-white py-3 px-4 rounded-xl hover:bg-white/5 transition-colors"
+              className={`text-sm font-medium py-3 px-4 rounded-xl transition-colors ${
+                pathname === l.href
+                  ? 'text-white bg-white/10'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
             >
-              {l}
-            </a>
+              {l.label}
+            </Link>
           ))}
           <div className="pt-3 sm:hidden">
-            <GlossyButton size="sm" fullWidth onClick={() => scrollTo('contact')}>
-              Book a Call
-            </GlossyButton>
+            <Link href="/contact" onClick={() => setIsOpen(false)}>
+              <GlossyButton size="sm" fullWidth>Book a Call</GlossyButton>
+            </Link>
           </div>
         </div>
       )}

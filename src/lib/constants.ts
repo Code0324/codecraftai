@@ -329,7 +329,7 @@ export const team: TeamMember[] = [
   {
     name: 'Ummay Kulsoom',
     role: 'CEO & Founder',
-    image: '/images/our team/Ummay-Kulsoom-CEO & Founder.png',
+    image: '/images/our team/ummay-kulsoom-ceo-founder.png',
     size: 'lg',
     position: { top: '5%', left: '5%' },
     bio: 'Visionary leader driving CodeCraftAI\'s mission to make AI accessible for businesses of all sizes.',

@@ -38,11 +38,20 @@ export default function Testimonials() {
     <section id="testimonials" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 mb-12">
         <div className="text-center">
-          <motion.h2 
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-6 heading-font"
+            className="text-sm font-semibold text-[#06B6D4] tracking-widest uppercase"
+          >
+            Testimonials
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="text-3xl md:text-5xl font-bold mt-3 mb-4 heading-font"
           >
             Client <span className="text-gradient">Success Stories</span>
           </motion.h2>
@@ -50,17 +59,27 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="w-full overflow-hidden relative pb-10 before:absolute before:left-0 before:top-0 before:w-32 before:h-full before:bg-gradient-to-r before:from-[#0a0b0f] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:w-32 after:h-full after:bg-gradient-to-l after:from-[#0a0b0f] after:to-transparent after:z-10 hover:[&>div]:pause">
-        <div className="flex w-max gap-6 px-6 group" style={{ animation: 'testiScroll 40s linear infinite' }}>
+      <div className="w-full overflow-hidden relative pb-10 before:absolute before:left-0 before:top-0 before:w-32 before:h-full before:bg-gradient-to-r before:from-[#0a0b0f] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:w-32 after:h-full after:bg-gradient-to-l after:from-[#0a0b0f] after:to-transparent after:z-10">
+        <div
+          className="flex w-max gap-6 px-6 group hover:[&]:pause"
+          style={{ animation: 'testiScroll 40s linear infinite' }}
+        >
           {scrollItems.map((item, i) => (
-            <div 
-              key={i} 
-              className="glass-card p-5 sm:p-8 rounded-2xl w-[300px] sm:w-[400px] flex-shrink-0 border border-white/5"
+            <div
+              key={i}
+              className="flex-shrink-0 w-[300px] sm:w-[400px] rounded-2xl p-6 sm:p-8"
+              style={{
+                background: 'rgba(255, 255, 255, 0.04)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+              }}
             >
-              <div className="text-[#4F8EF7] text-4xl font-serif mb-4">"</div>
-              <p className="text-slate-300 mb-6 text-lg leading-relaxed">{item.quote}</p>
+              <div className="text-[#4F8EF7] text-4xl font-serif mb-4">&ldquo;</div>
+              <p className="text-slate-300 mb-6 text-base leading-relaxed">{item.quote}</p>
               <div className="flex items-center gap-4">
-                <Image src={item.avatar} alt={item.author} width={48} height={48} className="rounded-full object-cover" unoptimized />
+                <Image src={item.avatar} alt={item.author} width={44} height={44} className="rounded-full object-cover" unoptimized />
                 <div>
                   <div className="text-white font-bold text-sm heading-font">{item.author}</div>
                   <div className="text-slate-500 text-xs">{item.role}</div>
@@ -69,12 +88,6 @@ export default function Testimonials() {
             </div>
           ))}
         </div>
-        {/* Hack to support pause on hover */}
-        <style>{`
-          .group:hover {
-            animation-play-state: paused !important;
-          }
-        `}</style>
       </div>
     </section>
   );

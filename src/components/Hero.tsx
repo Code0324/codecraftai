@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { ArrowDown } from 'lucide-react';
 import gsap from 'gsap';
 import { techBadges } from '@/lib/constants';
@@ -92,14 +93,12 @@ export default function Hero() {
               style={{ fontSize: 'clamp(44px, 5.5vw, 72px)' }}
             >
               <span className="block overflow-hidden">
-                <span className="hero-word inline-block text-white">Building</span>{' '}
-                <span className="hero-word inline-block text-white">The</span>
-              </span>
-              <span className="block overflow-hidden">
-                <span className="hero-word inline-block text-gradient">Next</span>{' '}
-                <span className="hero-word inline-block text-gradient">Gen</span>{' '}
-                <span className="hero-word inline-block text-gradient">AI</span>{' '}
-                <span className="hero-word inline-block text-gradient">Business</span>
+              <span className="hero-word inline-block text-white">We Solve</span>{' '}
+              <span className="hero-word inline-block text-white">Your</span>
+            </span>
+            <span className="block overflow-hidden">
+              <span className="hero-word inline-block text-gradient">Business</span>{' '}
+              <span className="hero-word inline-block text-gradient">Problems</span>
               </span>
             </h1>
 
@@ -108,18 +107,21 @@ export default function Hero() {
               ref={subtitleRef}
               className="text-slate-400 leading-relaxed max-w-lg text-base sm:text-lg"
             >
-              Build serious new 3D animated shopping and AI business. From intelligent chatbots to
-              full-stack automation — we craft software that scales.
+              We identify bottlenecks, design practical solutions, and build AI-powered systems that save time, cut costs, and scale your operations.
             </p>
 
             {/* Buttons */}
             <div ref={buttonsRef} className="flex flex-wrap gap-4 mt-2">
-              <GlossyButton onClick={scrollToContact} size="lg">
-                Get AI Employee
-              </GlossyButton>
-              <GlossyButton onClick={scrollToProjects} variant="ghost" size="lg">
-                View Projects
-              </GlossyButton>
+              <Link href="/contact">
+                <GlossyButton size="lg">
+                  Let's Solve Your Problem
+                </GlossyButton>
+              </Link>
+              <Link href="/services">
+                <GlossyButton variant="ghost" size="lg">
+                  Explore Services
+                </GlossyButton>
+              </Link>
             </div>
 
             {/* Tech badges row */}

@@ -33,7 +33,7 @@ export default function About() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-bold mb-6 heading-font"
           >
-            We Build the Future of <span className="text-gradient">Web</span>
+            We Solve Business Problems <span className="text-gradient">With Technology</span>
           </motion.h2>
           <div className="section-underline mx-auto" />
           <motion.p 
@@ -43,7 +43,7 @@ export default function About() {
             transition={{ delay: 0.1 }}
             className="text-lg text-slate-400 mb-12"
           >
-            CodeCraftAI is a premier web agency blending cutting-edge design with powerful engineering. We transform bold ideas into exceptional digital experiences that drive growth and captivate audiences.
+            CodeCraftAI is an AI-first software agency that identifies your business bottlenecks and designs practical solutions using automation, AI, and web development — focused on outcomes, not just technology.
           </motion.p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
