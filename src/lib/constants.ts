@@ -152,6 +152,7 @@ export const projects: Project[] = [
     tags: ['Workflow', 'Automation', 'Next.js'],
     category: 'Portfolio & Tools',
     accentColor: 'from-teal-600/30 to-cyan-900/30',
+    image: '/images/project/fte.png',
   },
 
   /* ── AI & Automation ── */
@@ -180,6 +181,7 @@ export const projects: Project[] = [
     tags: ['AIS Data', 'Tracking', 'ML'],
     category: 'AI & Automation',
     accentColor: 'from-cyan-700/30 to-blue-900/30',
+    image: '/images/project/Karchi port vessel tracker.png',
   },
   {
     title: 'AI Employee Platform',
@@ -199,6 +201,7 @@ export const projects: Project[] = [
     tags: ['Next.js', 'Charts', 'RBAC'],
     category: 'Dashboards',
     accentColor: 'from-indigo-600/30 to-blue-900/30',
+    image: '/images/project/CRM.png',
   },
   {
     title: 'Todo App',
@@ -207,6 +210,7 @@ export const projects: Project[] = [
     tags: ['Auth', 'Real-time', 'React'],
     category: 'Dashboards',
     accentColor: 'from-green-600/30 to-emerald-900/30',
+    image: '/images/project/Resume Builder app.png',
   },
 
   /* ── E-Commerce ── */
@@ -226,6 +230,7 @@ export const projects: Project[] = [
     tags: ['Storefront', 'Skincare', 'Next.js'],
     category: 'E-Commerce',
     accentColor: 'from-fuchsia-600/30 to-purple-900/30',
+    image: '/images/project/ecommerce.png',
   },
   {
     title: 'DailyWear Collections',
@@ -234,6 +239,7 @@ export const projects: Project[] = [
     tags: ['Fashion', 'Catalogue', 'Cart'],
     category: 'E-Commerce',
     accentColor: 'from-orange-600/30 to-amber-900/30',
+    image: '/images/project/Exclussive.png',
   },
   {
     title: 'Luxe Living',
@@ -301,7 +307,7 @@ export const projects: Project[] = [
     image: '/images/project/foodTuck Resturant Plateform.png',
   },
   {
-    title: 'Exclussive Fashion',
+    title: 'Exclusive Fashion',
     description: 'Premium fashion brand website with lookbook gallery, collection pages, and appointment booking for personal styling.',
     url: '#',
     tags: ['Fashion', 'Brand', 'Next.js'],
