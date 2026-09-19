@@ -100,7 +100,7 @@ function DesktopOrbit() {
 
       {/* Rotating ring with CEO center + surrounding team */}
       <motion.div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0"
         animate={{ rotate: 360 }}
         transition={{
           duration: 60,
@@ -112,21 +112,21 @@ function DesktopOrbit() {
         } as CSSProperties}
       >
         {/* Central CEO circle (large, at center) */}
-        <div className="absolute">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <GlassShieldCircle member={ceo} isCenter={true} />
         </div>
 
         {/* Surrounding team members (6 positions around orbit) */}
         {surroundingTeam.map((member, i) => {
           const angle = (i / surroundingTeam.length) * 360;
-          const radius = 280; // distance from center in SVG units
+          const radius = 280; // distance from center in pixels
           const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
           const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
 
           return (
             <motion.div
               key={member.name}
-              className="absolute"
+              className="absolute top-1/2 left-1/2"
               style={{
                 transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
               } as CSSProperties}
