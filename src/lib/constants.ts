@@ -89,6 +89,18 @@ export const services: Service[] = [
     shortDescription: 'Full-stack SaaS products with AI capabilities — from concept to deployment, including auth, payments, and scaling.',
     image: '/images/services/saas-ai.png',
   },
+  {
+    title: 'UI/UX Design',
+    slug: 'ui-ux-design',
+    shortDescription: 'User-centered design and interactive prototypes that make your digital products intuitive, beautiful, and conversion-focused.',
+    image: '/images/services/uiux.jfif',
+  },
+  {
+    title: 'Telegram Bot Development',
+    slug: 'telegram-bot',
+    shortDescription: 'Custom Telegram bots that automate customer service, deliver notifications, and engage users across one of the world\'s fastest-growing platforms.',
+    image: '/images/services/telegram-bot.png',
+  },
 ];
 
 /* ─── Featured Services (for homepage) ──────────────────────── */
@@ -97,8 +109,14 @@ export const featuredServiceSlugs = [
   'ai-chatbots',
   'business-automation',
   'ecommerce',
+  'mobile-apps',
   'custom-dashboards',
+  'crm',
   'n8n-automation',
+  'portfolio',
+  'saas-ai',
+  'ui-ux-design',
+  'telegram-bot',
 ];
 
 /* ─── Project Categories ────────────────────────────────────── */
