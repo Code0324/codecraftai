@@ -137,10 +137,6 @@ function TeamCardBody({ member }: { member: TeamMember }) {
       {/* Bottom info scrim */}
       <div
         className="absolute inset-x-0 bottom-0 z-[6] px-3 pb-2.5 pt-9 lg:px-3.5 lg:pb-3 lg:pt-10"
-        style={{
-          background:
-            'linear-gradient(to top, rgba(3,6,18,0.92) 0%, rgba(3,6,18,0.55) 55%, transparent 100%)',
-        }}
       >
         <p className="heading-font font-semibold text-white leading-tight text-[12.5px] lg:text-sm truncate">
           {member.name}
