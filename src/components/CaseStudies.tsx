@@ -324,7 +324,7 @@ export default function CaseStudies() {
                                 {/* Cover image */}
                                 <div
                                     className="relative w-full overflow-hidden"
-                                    style={{ aspectRatio: '16/8', background: '#0d1117' }}
+                                    style={{ minHeight: '300px', background: '#0d1117' }}
                                 >
                                     {/* Gradient placeholder */}
                                     <div
@@ -337,7 +337,7 @@ export default function CaseStudies() {
                                         src={activeStudy.image}
                                         alt={activeStudy.title}
                                         fill
-                                        className="object-cover object-top"
+                                        className="object-contain"
                                         unoptimized
                                     />
                                     {/* Bottom fade */}

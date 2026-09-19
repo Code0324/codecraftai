@@ -51,7 +51,8 @@ export default function FeaturedServices() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300 relative h-56"
+              className="group glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300 relative"
+              style={{ minHeight: '280px' }}
             >
               {/* Full Image Card */}
               {service.image && (
@@ -59,7 +60,7 @@ export default function FeaturedServices() {
                   src={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   unoptimized
                 />

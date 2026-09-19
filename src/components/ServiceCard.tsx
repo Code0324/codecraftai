@@ -44,7 +44,7 @@ export default function ServiceCard({ image, title, index = 0 }: ServiceCardProp
     >
       {/* Acrylic Desk Display */}
       <div
-        className="acr-display transition-all duration-500 ease-out h-[200px] sm:h-[240px] lg:h-[280px] w-auto"
+        className="acr-display transition-all duration-500 ease-out h-[200px] sm:h-[240px] lg:h-[280px] w-auto px-3 py-4 sm:px-4 sm:py-5 lg:px-5 lg:py-6 box-border"
         style={{
           filter: 'drop-shadow(0 18px 35px rgba(0,0,0,.18))',
         }}
