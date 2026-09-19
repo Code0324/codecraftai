@@ -51,7 +51,7 @@ export default function FeaturedServices() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300 relative"
+              className="group rounded-2xl overflow-hidden border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300 relative"
               style={{ minHeight: '280px' }}
             >
               {/* Full Image Card */}

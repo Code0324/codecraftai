@@ -324,15 +324,8 @@ export default function CaseStudies() {
                                 {/* Cover image */}
                                 <div
                                     className="relative w-full overflow-hidden"
-                                    style={{ minHeight: '300px', background: '#0d1117' }}
+                                    style={{ minHeight: '300px' }}
                                 >
-                                    {/* Gradient placeholder */}
-                                    <div
-                                        className="absolute inset-0"
-                                        style={{
-                                            background: `linear-gradient(135deg, ${activeStudy.accentFrom}22, ${activeStudy.accentTo}18)`,
-                                        }}
-                                    />
                                     <Image
                                         src={activeStudy.image}
                                         alt={activeStudy.title}
