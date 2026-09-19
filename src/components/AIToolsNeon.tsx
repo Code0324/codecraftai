@@ -1,3 +1,6 @@
+now replace my "AI Tool section " with this image , image should be relevant to my own AI Tools that have been appeared at "AI Tool section "
+
+```typescriptreact
 'use client';
 
 import { useRef, useEffect } from 'react';
