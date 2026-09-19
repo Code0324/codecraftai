@@ -11,8 +11,8 @@ const featured = services.filter((s) => featuredServiceSlugs.includes(s.slug));
 
 export default function FeaturedServices() {
   return (
-    <section id="services" className="py-24 relative bg-[#0a0b0f]">
-      <div className="container mx-auto px-6">
+    <section id="services" className="py-32 relative bg-[#0a0b0f]">
+      <div className="container mx-auto px-6 py-8">
         <div className="text-center mb-16">
           <motion.span
             initial={{ opacity: 0, y: 20 }}

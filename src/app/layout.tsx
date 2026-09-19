@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <div className="grid-overlay" aria-hidden="true" />
         <Navbar />
-        <main className="relative z-10">{children}</main>
+        <main className="relative z-10 pt-20">{children}</main>
         <FloatingWhatsApp />
         <ChatBot />
       </body>
