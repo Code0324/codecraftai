@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { services, featuredServiceSlugs } from '@/lib/constants';
@@ -50,10 +51,27 @@ export default function FeaturedServices() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="glass-card rounded-2xl p-6 border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300"
+              className="group glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300 flex flex-col h-full"
             >
-              <h3 className="text-lg font-bold text-white mb-2 heading-font">{service.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{service.shortDescription}</p>
+              {/* Image Container */}
+              {service.image && (
+                <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-slate-800/50 to-slate-900/50">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    unoptimized
+                  />
+                </div>
+              )}
+
+              {/* Content */}
+              <div className="flex-grow flex flex-col p-6">
+                <h3 className="text-lg font-bold text-white mb-2 heading-font group-hover:text-[#06B6D4] transition-colors">{service.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed flex-grow">{service.shortDescription}</p>
+              </div>
             </motion.div>
           ))}
         </div>
