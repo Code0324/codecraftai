@@ -84,7 +84,7 @@ export default function ProjectCard({ project, isActive, index }: ProjectCardPro
               alt={project.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 420px"
-              className="object-cover object-top transition-all duration-700 ease-out group-hover:scale-[1.02]"
+              className="object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.02]"
               loading={index === 0 ? 'eager' : 'lazy'}
               priority={index === 0}
             />
