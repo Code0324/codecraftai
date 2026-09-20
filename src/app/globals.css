@@ -315,7 +315,7 @@ body {
 
 /* ─── Marquee Carousel ────────────────────────────── */
 .marquee-track {
-  animation: marqueeScroll 30s linear infinite;
+  animation: marqueeScroll 40s linear infinite;
   width: max-content;
   will-change: transform;
 }
@@ -354,7 +354,7 @@ body {
 
 @media (max-width: 767px) {
   .marquee-track {
-    animation-duration: 25s; /* faster on mobile for better perceived speed */
+    animation-duration: 30s; /* smooth carousel animation on mobile */
   }
 }
 

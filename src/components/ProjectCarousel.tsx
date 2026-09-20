@@ -87,7 +87,9 @@ export default function ProjectCarousel() {
               px-4
               sm:px-6
               md:px-8
-              pt-8
+              pt-12
+              md:pt-16
+              lg:pt-20
               pb-12
               select-none
               hover:cursor-grab
