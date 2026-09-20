@@ -7,13 +7,13 @@ import ProjectCard from './ProjectCard'
 import projects from './ProjectData'
 
 export default function ProjectCarousel() {
-  // Duplicate projects for seamless infinite carousel
+  // Duplicate projects so the track can loop seamlessly
   const duplicatedProjects = [...projects, ...projects]
 
   return (
     <section
       id="projects"
-      className="relative py-28 lg:py-40 overflow-hidden"
+      className="relative py-24 lg:py-32 overflow-hidden"
     >
       {/* Background glow effects */}
       <div
@@ -48,12 +48,9 @@ export default function ProjectCarousel() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-
-        {/* =========================
-            SECTION HEADER
-        ========================== */}
-        <div className="mb-16 lg:mb-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="mb-14 lg:mb-16">
           <SectionHeading
             badge="Portfolio"
             title="Our Projects"
@@ -61,9 +58,7 @@ export default function ProjectCarousel() {
           />
         </div>
 
-        {/* =========================
-            CAROUSEL
-        ========================== */}
+        {/* Carousel */}
         <motion.div
           variants={fadeUpVariants}
           initial="hidden"
@@ -80,33 +75,23 @@ export default function ProjectCarousel() {
           <div
             className="
               marquee-wrapper
+              relative
+              w-full
               overflow-hidden
-              -mx-4
-              sm:-mx-6
-              md:-mx-8
-              px-4
-              sm:px-6
-              md:px-8
-              pt-12
-              md:pt-16
-              lg:pt-20
-              pb-12
+              py-6
               select-none
-              hover:cursor-grab
-              active:cursor-grabbing
+              [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
             "
           >
             <div
               className="
                 marquee-track
                 flex
+                w-max
                 gap-6
                 lg:gap-8
+                hover:[animation-play-state:paused]
               "
-              style={{
-                willChange: 'transform',
-                animation: 'marqueeScroll 40s linear infinite',
-              }}
             >
               {duplicatedProjects.map((project, index) => (
                 <div
@@ -128,7 +113,6 @@ export default function ProjectCarousel() {
             </div>
           </div>
         </motion.div>
-
       </div>
     </section>
   )
