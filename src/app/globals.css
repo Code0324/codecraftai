@@ -313,65 +313,47 @@ body {
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 .animate-bounce-down { animation: bounce-down 1.5s ease-in-out infinite; }
 
-/* ─── Marquee Carousel ────────────────────────────── */
+/* ─── Project Carousel ────────────────────────────── */
+.marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
 .marquee-track {
-  animation: marqueeScroll 40s linear infinite;
+  display: flex;
   width: max-content;
+  animation: project-marquee 45s linear infinite;
   will-change: transform;
 }
 
-.marquee-wrapper:hover .marquee-track {
+.marquee-track:hover {
   animation-play-state: paused;
 }
 
-.marquee-slide {
-  flex-shrink: 0;
-  min-width: 0;
-  padding-left: 12px;
-  padding-right: 12px;
-  width: 320px;
-}
-
-@media (min-width: 640px) {
-  .marquee-slide {
-    width: 380px;
+@keyframes project-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 0.75rem));
   }
 }
 
-@media (min-width: 768px) {
-  .marquee-slide {
-    width: 50vw;
-    max-width: 444px; /* 420px card + 12px left + 12px right padding */
-  }
-}
-
-@media (min-width: 1024px) {
-  .marquee-slide {
-    width: 45vw;
-    max-width: 444px;
-  }
-}
-
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .marquee-track {
-    animation-duration: 30s; /* smooth carousel animation on mobile */
+    animation-duration: 35s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }
 
 @keyframes wa-pulse {
   0%, 100% { transform: scale(1); opacity: 0.2; }
   50% { transform: scale(1.15); opacity: 0.08; }
-}
-
-/* ── Marquee animation ── */
-@keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes testiScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
 }
 
 /* ─── Team Section ─────────────────────────────────────────── */
