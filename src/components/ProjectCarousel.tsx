@@ -105,6 +105,7 @@ export default function ProjectCarousel() {
               "
               style={{
                 willChange: 'transform',
+                animation: 'marqueeScroll 40s linear infinite',
               }}
             >
               {duplicatedProjects.map((project, index) => (
