@@ -25,7 +25,7 @@ const ProjectCarousel = dynamic(
                 className="rounded-[24px] bg-white/5 animate-pulse"
                 style={{
                   width: 390,
-                  height: 470,
+                  height: 780,
                 }}
               />
             ))}

@@ -335,19 +335,13 @@ body {
     transform: translateX(0);
   }
   to {
-    transform: translateX(calc(-50% - 0.75rem));
+    transform: translateX(-50%);
   }
 }
 
 @media (max-width: 768px) {
   .marquee-track {
     animation-duration: 35s;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
   }
 }
 

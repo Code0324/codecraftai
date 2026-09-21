@@ -43,9 +43,9 @@ export default function ProjectCard({
           ease-out
           flex
           flex-col
-          h-[540px]
-          md:h-[620px]
-          lg:h-[680px]
+          h-[620px]
+          md:h-[700px]
+          lg:h-[780px]
         "
         style={{
           background: 'rgba(255,255,255,0.04)',

@@ -88,8 +88,6 @@ export default function ProjectCarousel() {
                 marquee-track
                 flex
                 w-max
-                gap-6
-                lg:gap-8
                 hover:[animation-play-state:paused]
               "
             >
@@ -101,6 +99,9 @@ export default function ProjectCarousel() {
                     w-[320px]
                     sm:w-[360px]
                     lg:w-[390px]
+                    box-content
+                    pr-6
+                    lg:pr-8
                   "
                 >
                   <ProjectCard
