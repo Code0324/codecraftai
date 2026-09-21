@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion, MotionConfig } from 'framer-motion';
 import GlossyButton from './GlossyButton';
 
@@ -22,37 +21,37 @@ const teamMembers: TeamMember[] = [
   {
     id: 'member-1',
     name: 'Content Writer',
-    role: 'AI Specialist',
+    role: 'AI Agent',
     image: '/images/our team/AI Team/Content Writer.png',
   },
   {
     id: 'member-2',
     name: 'SEO Expert',
-    role: 'SEO Specialist',
+    role: 'AI Agent',
     image: '/images/our team/AI Team/SEO Expert.png',
   },
   {
     id: 'member-3',
     name: 'Backend Developer',
-    role: 'Developer',
+    role: 'AI Agent',
     image: '/images/our team/AI Team/Backend Developer.png',
   },
   {
     id: 'member-4',
     name: 'Frontend Developer',
-    role: 'Developer',
+    role: 'AI Agent',
     image: '/images/our team/AI Team/Frontendd Developer.png',
   },
   {
     id: 'member-5',
     name: 'UI/UX Designer',
-    role: 'Designer',
+    role: 'AI Agent',
     image: '/images/our team/AI Team/UI UX Designer.png',
   },
   {
     id: 'member-6',
     name: 'Graphic Designer',
-    role: 'Designer',
+    role: 'AI Agent',
     image: '/images/our team/AI Team/Graphic Designer.png',
   },
   {
@@ -63,7 +62,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: 'member-8',
-    name: 'Ms Laiqa',
+    name: 'Ms Fouzia',
     role: 'Marketing Specialist',
     image: '/images/our team/Ms Laiqa.png',
   },
@@ -231,11 +230,9 @@ export default function TeamPreview() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <Link href="/team">
-              <GlossyButton variant="ghost" size="lg">
-                Meet the Full Team
-              </GlossyButton>
-            </Link>
+            <GlossyButton href="/team" variant="ghost" size="lg">
+              Meet the Full Team
+            </GlossyButton>
           </motion.div>
         </div>
       </section>

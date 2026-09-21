@@ -360,7 +360,7 @@ export const team: TeamMember[] = [
     skills: ['Strategic Planning', 'AI Solutions', 'Business Development', 'Team Leadership'],
   },
   {
-    name: 'Ms Laiqa',
+    name: 'Ms Fouzia',
     role: 'Graphic Designer',
     image: '/images/our team/Ms Laiqa.png',
     size: 'md',
@@ -369,7 +369,7 @@ export const team: TeamMember[] = [
     skills: ['Brand Design', 'UI Design', 'Illustration', 'Figma'],
   },
   {
-    name: 'Ms Sumira',
+    name: 'Ms Aneela',
     role: 'Content Writer',
     image: '/images/our team/Ms Sumira.png',
     size: 'sm',
@@ -537,7 +537,7 @@ export const socialLinks: SocialLink[] = [
 
 /* ─── Problem Solving Messages ──────────────────────────────── */
 export const problemSolvingMessages = {
-  headline: 'We Solve Your Business Problems',
+  headline: 'Smart AI For Smarter Businesses',
   subheadline: 'Technology is just a tool. We focus on the problem first.',
   problems: [
     {

@@ -5,7 +5,7 @@ const About          = dynamic(() => import('@/components/About'));
 const Process        = dynamic(() => import('@/components/Process'));
 const ProblemSolving = dynamic(() => import('@/components/ProblemSolving'));
 const FeaturedServices = dynamic(() => import('@/components/FeaturedServices'));
-const FeaturedProjects = dynamic(() => import('@/components/FeaturedProjects'));
+const Projects       = dynamic(() => import('@/components/Projects'));
 const TeamPreview    = dynamic(() => import('@/components/TeamPreview'));
 const Testimonials   = dynamic(() => import('@/components/Testimonials'));
 const Contact        = dynamic(() => import('@/components/Contact'));
@@ -20,7 +20,7 @@ export default function HomePage() {
       <About />
       <AIToolsNeon />
       <FeaturedServices />
-      <FeaturedProjects />
+      <Projects />
       <Process />
       <TeamPreview />
       <Testimonials />

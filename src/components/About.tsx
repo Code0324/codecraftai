@@ -63,16 +63,25 @@ export default function About() {
           </div>
         </div>
 
-        {/* Tech Marquee */}
-        <div className="w-full overflow-hidden relative py-10 before:absolute before:left-0 before:top-0 before:w-32 before:h-full before:bg-gradient-to-r before:from-[#0a0b0f] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:w-32 after:h-full after:bg-gradient-to-l after:from-[#0a0b0f] after:to-transparent after:z-10">
-          <div className="flex w-max" style={{ animation: 'marqueeScroll 30s linear infinite' }}>
-            {[...techStack, ...techStack].map((tech, i) => (
-              <div key={i} className="flex items-center gap-3 px-8 text-slate-500 hover:text-white transition-colors duration-300">
-                <tech.icon className="w-8 h-8" />
-                <span className="text-xl font-medium heading-font">{tech.name}</span>
-              </div>
-            ))}
-          </div>
+        {/* Tech Marquee — two rows moving in opposite directions */}
+        <div className="w-full overflow-hidden relative py-10 flex flex-col gap-6 before:absolute before:left-0 before:top-0 before:w-32 before:h-full before:bg-gradient-to-r before:from-[#0a0b0f] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:w-32 after:h-full after:bg-gradient-to-l after:from-[#0a0b0f] after:to-transparent after:z-10">
+          {[
+            { items: techStack, reverse: false },
+            { items: [...techStack].reverse(), reverse: true },
+          ].map((row, r) => (
+            <div
+              key={r}
+              className={`tech-marquee-row flex w-max${row.reverse ? ' reverse' : ''}`}
+              aria-hidden={r > 0}
+            >
+              {[...row.items, ...row.items].map((tech, i) => (
+                <div key={i} className="flex items-center gap-3 px-8 text-slate-500 hover:text-white transition-colors duration-300">
+                  <tech.icon className="w-8 h-8" />
+                  <span className="text-xl font-medium heading-font whitespace-nowrap">{tech.name}</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </section>

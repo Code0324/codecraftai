@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { fadeUpVariants } from '@/lib/animations'
+import Link from 'next/link'
+import GlossyButton from './GlossyButton'
 import SectionHeading from './SectionHeading'
 import ProjectCard from './ProjectCard'
 import projects from './ProjectData'
@@ -78,7 +80,7 @@ export default function ProjectCarousel() {
               relative
               w-full
               overflow-hidden
-              py-6
+              py-10
               select-none
               [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
             "
@@ -112,6 +114,14 @@ export default function ProjectCarousel() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/projects">
+              <GlossyButton variant="ghost" size="lg">
+                View All Projects
+              </GlossyButton>
+            </Link>
           </div>
         </motion.div>
       </div>

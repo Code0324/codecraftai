@@ -93,12 +93,13 @@ export default function Hero() {
               style={{ fontSize: 'clamp(44px, 5.5vw, 72px)' }}
             >
               <span className="block overflow-hidden">
-              <span className="hero-word inline-block text-white">We Solve</span>{' '}
-              <span className="hero-word inline-block text-white">Your</span>
+              <span className="hero-word inline-block text-white">AI</span>{' '}
+              <span className="hero-word inline-block text-white">Solutions</span>
             </span>
             <span className="block overflow-hidden">
-              <span className="hero-word inline-block text-gradient">Business</span>{' '}
-              <span className="hero-word inline-block text-gradient">Problems</span>
+              <span className="hero-word inline-block text-gradient">For</span>{' '}
+              <span className="hero-word inline-block text-gradient">Every</span>{' '}
+              <span className="hero-word inline-block text-gradient">Business</span>
               </span>
             </h1>
 
