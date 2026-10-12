@@ -448,9 +448,7 @@ export default function ChatBot() {
       </AnimatePresence>
 
       {/* ─── Floating Toggle Button ────────────────────────────
-         The icon PNG itself is the button — no wrapper circle,
-         no border, no cropping. Acrylic glow comes from CSS
-         drop-shadows applied directly to the image. */}
+         A round bubble with the brand logo inside. */}
       <motion.button
         ref={toggleBtnRef}
         onClick={() => setIsOpen((v) => !v)}
@@ -464,7 +462,7 @@ export default function ChatBot() {
         aria-controls="codecraftai-chat"
       >
         {/* Idle float (subtle, 4s, no bounce) */}
-        <span className="absolute inset-0 animate-chat-float">
+        <span className="absolute inset-0 animate-chat-float overflow-hidden rounded-full border border-white/15 bg-gradient-to-br from-[#10204a] to-[#050816] shadow-[0_8px_24px_rgba(0,0,0,0.55)]">
           <AnimatePresence mode="wait">
             {isOpen ? (
               <motion.span
@@ -487,7 +485,7 @@ export default function ChatBot() {
                 className="absolute inset-0"
               >
                 {/* The icon itself — acrylic shine + neon glow via CSS */}
-                <span className="chat-launcher-icon absolute inset-0">
+                <span className="chat-launcher-icon absolute inset-0 p-[13%]">
                   <ChatIcon className="w-full h-full" sizes="(min-width: 1024px) 72px, (min-width: 768px) 68px, 64px" />
                   {/* Acrylic shine sweep overlay */}
                   <span className="chat-launcher-shine" aria-hidden="true" />
