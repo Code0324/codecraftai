@@ -11,6 +11,8 @@ interface BrandLogoProps {
   size?: number;
   className?: string;
   priority?: boolean;
+  /** Adds a cyan neon halo around the logo. */
+  neon?: boolean;
 }
 
 const ASSETS: Record<Variant, { src: string; w: number; h: number }> = {
@@ -43,7 +45,7 @@ function EmbossFilter() {
   );
 }
 
-export default function BrandLogo({ variant = 'mark', size = 40, className = '', priority = false }: BrandLogoProps) {
+export default function BrandLogo({ variant = 'mark', size = 40, className = '', priority = false, neon = false }: BrandLogoProps) {
   const reduce = useReducedMotion();
   const { src, w, h } = ASSETS[variant];
   const width = Math.round((size * w) / h);
@@ -62,7 +64,7 @@ export default function BrandLogo({ variant = 'mark', size = 40, className = '',
         height={h}
         priority={priority}
         sizes={`${width}px`}
-        className="cc-brand-logo-img h-full w-full object-contain"
+        className={`cc-brand-logo-img h-full w-full object-contain ${neon ? 'cc-neon' : ''}`}
       />
       {/* Gloss sweep, clipped to the logo's own shape */}
       <span

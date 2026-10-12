@@ -343,6 +343,7 @@ export interface TeamMember {
   name: string;
   role: string;
   image: string;
+  group: 'human' | 'ai';
   size: 'sm' | 'md' | 'lg';
   position: { top: string; left: string };
   bio?: string;
@@ -353,7 +354,8 @@ export const team: TeamMember[] = [
   {
     name: 'Ummay Kulsoom',
     role: 'CEO & Founder',
-    image: '/images/our team/ummay-kulsoom-ceo-founder.png',
+    image: '/images/team/ummay-kulsoom.webp',
+    group: 'human',
     size: 'lg',
     position: { top: '5%', left: '5%' },
     bio: 'Visionary leader driving CodeCraftAI\'s mission to make AI accessible for businesses of all sizes.',
@@ -362,7 +364,8 @@ export const team: TeamMember[] = [
   {
     name: 'Ms Fouzia',
     role: 'Frontend Developer',
-    image: '/images/our team/Ms Fouzia.jpg',
+    image: '/images/team/fouzia.webp',
+    group: 'human',
     size: 'md',
     position: { top: '25%', left: '80%' },
     bio: 'Frontend developer building performant, accessible web interfaces with React and Next.js.',
@@ -371,7 +374,8 @@ export const team: TeamMember[] = [
   {
     name: 'Ms Aneela',
     role: 'Backend Developer',
-    image: '/images/our team/Ms Aneela.jpg',
+    image: '/images/team/aneela.webp',
+    group: 'human',
     size: 'sm',
     position: { top: '55%', left: '2%' },
     bio: 'Backend developer designing scalable APIs and data systems that power our AI solutions.',
@@ -380,7 +384,8 @@ export const team: TeamMember[] = [
   {
     name: 'Mr Ameer',
     role: 'Marketing Manager',
-    image: '/images/our team/Mr Ameer.png',
+    image: '/images/team/ameer.webp',
+    group: 'human',
     size: 'md',
     position: { top: '65%', left: '72%' },
     bio: 'Data-driven marketer who connects the right solutions with the right audiences.',
@@ -389,7 +394,8 @@ export const team: TeamMember[] = [
   {
     name: 'Mr Huzaifa',
     role: 'SEO Expert',
-    image: '/images/our team/Mr Huzaifa.png',
+    image: '/images/team/huzaifa.webp',
+    group: 'human',
     size: 'sm',
     position: { top: '10%', left: '72%' },
     bio: 'Search optimization specialist who drives organic growth through technical and content SEO.',
@@ -397,8 +403,9 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Alex Morgan',
-    role: 'AI Agent',
-    image: '/images/our team/AI Team/Frontendd Developer.jpg',
+    role: 'AI Frontend Developer',
+    image: '/images/team/ai-frontend.webp',
+    group: 'ai',
     size: 'md',
     position: { top: '40%', left: '15%' },
     bio: 'Frontend specialist building performant, accessible web applications with React and Next.js.',
@@ -406,8 +413,9 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Daniel Carter',
-    role: 'AI Agent',
-    image: '/images/our team/AI Team/Backend Developer.jpg',
+    role: 'AI Backend Developer',
+    image: '/images/team/ai-backend.webp',
+    group: 'ai',
     size: 'sm',
     position: { top: '75%', left: '40%' },
     bio: 'Backend architect designing scalable APIs and database systems for enterprise applications.',
@@ -415,8 +423,9 @@ export const team: TeamMember[] = [
   },
   {
     name: 'James Wilson',
-    role: 'AI Agent',
-    image: '/images/our team/AI Team/SEO Expert.jpg',
+    role: 'AI SEO Expert',
+    image: '/images/team/ai-seo.webp',
+    group: 'ai',
     size: 'sm',
     position: { top: '50%', left: '55%' },
     bio: 'Analytics-focused specialist who drives measurable organic traffic growth through SEO.',
@@ -424,8 +433,9 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Olivia Bennett',
-    role: 'AI Agent',
-    image: '/images/our team/AI Team/Graphic Designer.jpg',
+    role: 'AI Graphic Designer',
+    image: '/images/team/ai-graphic.webp',
+    group: 'ai',
     size: 'lg',
     position: { top: '80%', left: '10%' },
     bio: 'Strategic designer who builds cohesive brand systems that resonate with target audiences.',

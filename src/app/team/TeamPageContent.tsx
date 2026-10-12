@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import TeamAvatar from '@/components/TeamAvatar';
 import { motion } from 'framer-motion';
 import { team } from '@/lib/constants';
 
@@ -37,46 +37,29 @@ export default function TeamPageContent() {
       </section>
 
       {/* Team Grid */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {team.map((member, i) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: Math.min(i * 0.05, 0.3) }}
-              className="glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-[#4F8EF7]/20 transition-all duration-300 group"
-            >
-              {/* Avatar */}
-              <div className="relative h-56 bg-gradient-to-br from-[#0D1117] to-[#1a1a2e] flex items-center justify-center overflow-hidden">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  width={200}
-                  height={200}
-                  className="object-contain h-40 w-auto group-hover:scale-105 transition-transform duration-300"
-                  unoptimized
-                />
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-white heading-font">{member.name}</h3>
-                <p className="text-[#4F8EF7] text-sm font-medium mb-3">{member.role}</p>
-                {member.bio && (
-                  <p className="text-slate-400 text-sm leading-relaxed mb-4">{member.bio}</p>
-                )}
-                {member.skills && member.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {member.skills.map((skill) => (
-                      <span key={skill} className="tech-badge text-xs">{skill}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        {([['Human Team', 'human'], ['AI Agents', 'ai']] as const).map(([title, group]) => (
+          <div key={group} className="mb-14">
+            <h2 className="heading-font mb-6 text-center text-xl font-bold text-white">{title}</h2>
+            <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+              {team.filter((m) => m.group === group).map((member) => (
+                <motion.li
+                  key={member.name}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35 }}
+                  className="glass-card mx-auto flex h-full w-full max-w-[260px] flex-col items-center rounded-2xl border border-white/5 p-4 text-center transition-colors hover:border-[#4F8EF7]/30"
+                >
+                  <TeamAvatar src={member.image} alt={member.name} size={104} />
+                  <h3 className="heading-font mt-3 text-base font-bold leading-tight text-white">{member.name}</h3>
+                  <p className="mb-2 mt-1 text-sm font-medium text-[#4F8EF7]">{member.role}</p>
+                  {member.bio && <p className="line-clamp-2 text-xs leading-relaxed text-slate-400">{member.bio}</p>}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
 
       {/* CTA */}

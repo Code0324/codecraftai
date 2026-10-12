@@ -4,6 +4,7 @@ import '@fontsource-variable/outfit';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import ChatBot from '@/components/ChatBot';
+import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="grid-overlay" aria-hidden="true" />
         <Navbar />
         <main className="relative z-10 pt-20">{children}</main>
+        <Footer />
         <FloatingWhatsApp />
         <ChatBot />
       </body>

@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-16 relative z-10">
             <div className="max-w-xs">
               <Link href="/" className="flex items-center mb-6" aria-label="CodeCraftAI home">
-                <BrandLogo variant="full" size={88} />
+                <BrandLogo variant="full" size={88} neon />
               </Link>
               <p className="text-slate-400 text-base leading-relaxed">
                 Streamline operations, boost productivity, and scale smarter with CodeCraftAI.
