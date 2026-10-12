@@ -11,11 +11,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid messages format' }, { status: 400 });
     }
 
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-flash-latest',
-      systemInstruction: systemPrompt || '',
-    });
-
     // Convert messages to Gemini format
     // Gemini requires history to start with a user turn; drop the leading assistant welcome message.
     const prior = messages.slice(0, -1);
@@ -27,8 +22,22 @@ export async function POST(req: NextRequest) {
 
     const lastMessage = messages[messages.length - 1];
 
-    const chat = model.startChat({ history });
-    const result = await chat.sendMessageStream(lastMessage.content);
+    // Google returns 503 under high demand: retry, then fall back to the lite model.
+    const attempts = ['gemini-flash-latest', 'gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-flash-lite-latest'];
+    let result;
+    for (let i = 0; i < attempts.length; i++) {
+      try {
+        const m = genAI.getGenerativeModel({ model: attempts[i], systemInstruction: systemPrompt || '' });
+        result = await m.startChat({ history }).sendMessageStream(lastMessage.content);
+        break;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : '';
+        const retryable = /\b(503|429|500)\b/.test(msg);
+        if (!retryable || i === attempts.length - 1) throw err;
+        await new Promise((r) => setTimeout(r, 600 * (i + 1)));
+      }
+    }
+    if (!result) throw new Error('No response from model');
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
