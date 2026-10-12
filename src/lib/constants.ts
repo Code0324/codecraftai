@@ -362,6 +362,26 @@ export const team: TeamMember[] = [
     skills: ['Strategic Planning', 'AI Solutions', 'Business Development', 'Team Leadership'],
   },
   {
+    name: 'Mr Ameer',
+    role: 'Marketing Manager',
+    image: '/images/team/ameer.webp',
+    group: 'human',
+    size: 'md',
+    position: { top: '65%', left: '72%' },
+    bio: 'Data-driven marketer who connects the right solutions with the right audiences.',
+    skills: ['Digital Marketing', 'Campaign Strategy', 'Analytics', 'Growth Hacking'],
+  },
+  {
+    name: 'Mr Huzaifa',
+    role: 'SEO Expert',
+    image: '/images/team/huzaifa.webp',
+    group: 'human',
+    size: 'sm',
+    position: { top: '10%', left: '72%' },
+    bio: 'Search optimization specialist who drives organic growth through technical and content SEO.',
+    skills: ['Technical SEO', 'Keyword Research', 'Link Building', 'Analytics'],
+  },
+  {
     name: 'Ms Fouzia',
     role: 'Frontend Developer',
     image: '/images/team/fouzia.webp',
@@ -382,24 +402,24 @@ export const team: TeamMember[] = [
     skills: ['Python', 'APIs', 'PostgreSQL', 'Docker'],
   },
   {
-    name: 'Mr Ameer',
-    role: 'Marketing Manager',
-    image: '/images/team/ameer.webp',
+    name: 'Ms Laiqa',
+    role: 'Graphic Designer',
+    image: '/images/team/laiqa.webp',
     group: 'human',
     size: 'md',
-    position: { top: '65%', left: '72%' },
-    bio: 'Data-driven marketer who connects the right solutions with the right audiences.',
-    skills: ['Digital Marketing', 'Campaign Strategy', 'Analytics', 'Growth Hacking'],
+    position: { top: '50%', left: '50%' },
+    bio: 'Creative designer crafting brand visuals, social graphics and polished layouts for our clients.',
+    skills: ['Brand Design','Photoshop','Illustrator','Social Media Creatives'],
   },
   {
-    name: 'Mr Huzaifa',
-    role: 'SEO Expert',
-    image: '/images/team/huzaifa.webp',
+    name: 'Ms Samera',
+    role: 'Content Writer',
+    image: '/images/team/samera.webp',
     group: 'human',
-    size: 'sm',
-    position: { top: '10%', left: '72%' },
-    bio: 'Search optimization specialist who drives organic growth through technical and content SEO.',
-    skills: ['Technical SEO', 'Keyword Research', 'Link Building', 'Analytics'],
+    size: 'md',
+    position: { top: '50%', left: '50%' },
+    bio: 'Content writer producing clear, engaging copy for websites, blogs and campaigns.',
+    skills: ['Copywriting','Blog Writing','Content Strategy','SEO Writing'],
   },
   {
     name: 'Alex Morgan',
@@ -441,10 +461,20 @@ export const team: TeamMember[] = [
     bio: 'Strategic designer who builds cohesive brand systems that resonate with target audiences.',
     skills: ['Brand Strategy', 'Visual Identity', 'Motion Design', 'Art Direction'],
   },
+  {
+    name: 'Sophia Reed',
+    role: 'AI Content Writer',
+    image: '/images/team/ai-content.webp',
+    group: 'ai',
+    size: 'md',
+    position: { top: '50%', left: '50%' },
+    bio: 'Content specialist producing on-brand copy, blogs and campaign messaging at scale.',
+    skills: ['Copywriting','Content Strategy','SEO Writing','Storytelling'],
+  },
 ];
 
 /* ─── Featured Team (for homepage — first 4) ────────────────── */
-export const featuredTeamIndices = [0, 5, 7, 8];
+export const featuredTeamIndices = [0, 7, 9, 10];
 
 /* ─── Pricing ───────────────────────────────────────────────── */
 export interface PricingTier {

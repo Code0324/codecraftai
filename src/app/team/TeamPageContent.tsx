@@ -3,7 +3,7 @@
 import React from 'react';
 import TeamAvatar from '@/components/TeamAvatar';
 import { motion } from 'framer-motion';
-import { team } from '@/lib/constants';
+import { team, type TeamMember as Member } from '@/lib/constants';
 
 export default function TeamPageContent() {
   return (
@@ -38,18 +38,22 @@ export default function TeamPageContent() {
 
       {/* Team Grid */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {([['Human Team', 'human'], ['AI Agents', 'ai']] as const).map(([title, group]) => (
-          <div key={group} className="mb-14">
+        {([
+          ['CEO & Founder', (m: Member) => m.role === 'CEO & Founder'],
+          ['Human Team', (m: Member) => m.group === 'human' && m.role !== 'CEO & Founder'],
+          ['AI Agents', (m: Member) => m.group === 'ai'],
+        ] as const).map(([title, pick]) => (
+          <div key={title} className="mb-14">
             <h2 className="heading-font mb-6 text-center text-xl font-bold text-white">{title}</h2>
-            <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-              {team.filter((m) => m.group === group).map((member) => (
+            <ul className="flex flex-wrap justify-center gap-4">
+              {team.filter(pick).map((member) => (
                 <motion.li
                   key={member.name}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35 }}
-                  className="glass-card mx-auto flex h-full w-full max-w-[260px] flex-col items-center rounded-2xl border border-white/5 p-4 text-center transition-colors hover:border-[#4F8EF7]/30"
+                  className="glass-card flex w-[calc(50%-0.5rem)] max-w-[260px] flex-col items-center rounded-2xl border border-white/5 p-4 text-center transition-colors hover:border-[#4F8EF7]/30 lg:w-[calc(25%-0.75rem)]"
                 >
                   <TeamAvatar src={member.image} alt={member.name} size={104} />
                   <h3 className="heading-font mt-3 text-base font-bold leading-tight text-white">{member.name}</h3>

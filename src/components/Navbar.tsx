@@ -31,7 +31,7 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center" aria-label="CodeCraftAI home">
-          <BrandLogo variant="mark" size={44} priority neon />
+          <BrandLogo variant="mark" size={44} priority />
           <span className="ml-2 hidden sm:inline text-lg font-semibold tracking-tight text-white">CodeCraftAI</span>
         </Link>
 
