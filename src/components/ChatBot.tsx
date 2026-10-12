@@ -49,7 +49,7 @@ function ChatIcon({ className = '', sizes = '48px' }: { className?: string; size
   return (
     <span className={`relative block overflow-hidden ${className}`}>
       <Image
-        src="/chatbot/chatbot-icon.png"
+        src="/brand/logo-mark.png"
         alt=""
         fill
         sizes={sizes}

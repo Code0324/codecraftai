@@ -506,14 +506,10 @@ body {
    Neon glow via drop-shadow applied directly to the image,
    so no extra wrapper circle is needed. */
 .chat-launcher-icon {
-  filter: drop-shadow(0 0 18px rgba(0, 225, 255, 0.45)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.35));
   transition: filter 0.25s ease, transform 0.25s ease;
   will-change: filter, transform;
 }
 
-.group:hover .chat-launcher-icon {
-  filter: drop-shadow(0 0 26px rgba(0, 225, 255, 0.7)) drop-shadow(0 0 55px rgba(168, 85, 247, 0.55));
-}
 
 /* Acrylic shine sweep across the icon on hover */
 .chat-launcher-shine {
