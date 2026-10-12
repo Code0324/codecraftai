@@ -454,7 +454,7 @@ export default function ChatBot() {
         onClick={() => setIsOpen((v) => !v)}
         whileHover={{ scale: 1.08, y: -4 }}
         whileTap={{ scale: 0.94 }}
-        className="group fixed z-[10002] w-16 h-16 md:w-[68px] md:h-[68px] lg:w-[72px] lg:h-[72px] rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050816]"
+        className="group fixed z-[10002] w-[59px] h-[59px] md:w-[62px] md:h-[62px] lg:w-[65px] lg:h-[65px] rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050816]"
         style={{ bottom: '14px', right: '24px' }}
         transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
@@ -485,7 +485,7 @@ export default function ChatBot() {
                 className="absolute inset-0"
               >
                 {/* The icon itself — acrylic shine + neon glow via CSS */}
-                <span className="chat-launcher-icon absolute inset-0 p-[13%]">
+                <span className="chat-launcher-icon absolute inset-0 p-[6px]">
                   <ChatIcon className="w-full h-full" sizes="(min-width: 1024px) 72px, (min-width: 768px) 68px, 64px" />
                   {/* Acrylic shine sweep overlay */}
                   <span className="chat-launcher-shine" aria-hidden="true" />
