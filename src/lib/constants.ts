@@ -361,21 +361,21 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Ms Fouzia',
-    role: 'Graphic Designer',
-    image: '/images/our team/Ms Laiqa.png',
+    role: 'Frontend Developer',
+    image: '/images/our team/Ms Fouzia.jpg',
     size: 'md',
     position: { top: '25%', left: '80%' },
-    bio: 'Creative designer crafting visual identities that communicate brand stories effectively.',
-    skills: ['Brand Design', 'UI Design', 'Illustration', 'Figma'],
+    bio: 'Frontend developer building performant, accessible web interfaces with React and Next.js.',
+    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   },
   {
     name: 'Ms Aneela',
-    role: 'Content Writer',
-    image: '/images/our team/Ms Sumira.png',
+    role: 'Backend Developer',
+    image: '/images/our team/Ms Aneela.jpg',
     size: 'sm',
     position: { top: '55%', left: '2%' },
-    bio: 'Strategic content creator who turns complex technical concepts into clear, compelling copy.',
-    skills: ['Content Strategy', 'Technical Writing', 'SEO Copywriting', 'Brand Voice'],
+    bio: 'Backend developer designing scalable APIs and data systems that power our AI solutions.',
+    skills: ['Python', 'APIs', 'PostgreSQL', 'Docker'],
   },
   {
     name: 'Mr Ameer',
@@ -387,9 +387,9 @@ export const team: TeamMember[] = [
     skills: ['Digital Marketing', 'Campaign Strategy', 'Analytics', 'Growth Hacking'],
   },
   {
-    name: 'Mr Bilal',
+    name: 'Mr Huzaifa',
     role: 'SEO Expert',
-    image: '/images/our team/Mr Bilal.png',
+    image: '/images/our team/Mr Huzaifa.png',
     size: 'sm',
     position: { top: '10%', left: '72%' },
     bio: 'Search optimization specialist who drives organic growth through technical and content SEO.',
@@ -398,7 +398,7 @@ export const team: TeamMember[] = [
   {
     name: 'Alex Morgan',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Frontendd Developer.png',
+    image: '/images/our team/AI Team/Frontendd Developer.jpg',
     size: 'md',
     position: { top: '40%', left: '15%' },
     bio: 'Frontend specialist building performant, accessible web applications with React and Next.js.',
@@ -407,25 +407,16 @@ export const team: TeamMember[] = [
   {
     name: 'Daniel Carter',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Backend Developer.png',
+    image: '/images/our team/AI Team/Backend Developer.jpg',
     size: 'sm',
     position: { top: '75%', left: '40%' },
     bio: 'Backend architect designing scalable APIs and database systems for enterprise applications.',
     skills: ['Python', 'FastAPI', 'PostgreSQL', 'Docker', 'REST APIs'],
   },
   {
-    name: 'Emily Parker',
-    role: 'AI Agent',
-    image: '/images/our team/AI Team/UI UX Designer.png',
-    size: 'md',
-    position: { top: '15%', left: '45%' },
-    bio: 'User-centered designer who transforms complex workflows into intuitive interfaces.',
-    skills: ['User Research', 'Wireframing', 'Prototyping', 'Figma', 'Design Systems'],
-  },
-  {
     name: 'James Wilson',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/SEO Expert.png',
+    image: '/images/our team/AI Team/SEO Expert.jpg',
     size: 'sm',
     position: { top: '50%', left: '55%' },
     bio: 'Analytics-focused specialist who drives measurable organic traffic growth through SEO.',
@@ -434,7 +425,7 @@ export const team: TeamMember[] = [
   {
     name: 'Olivia Bennett',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Graphic Designer.png',
+    image: '/images/our team/AI Team/Graphic Designer.jpg',
     size: 'lg',
     position: { top: '80%', left: '10%' },
     bio: 'Strategic designer who builds cohesive brand systems that resonate with target audiences.',
@@ -443,7 +434,7 @@ export const team: TeamMember[] = [
 ];
 
 /* ─── Featured Team (for homepage — first 4) ────────────────── */
-export const featuredTeamIndices = [0, 5, 7, 9];
+export const featuredTeamIndices = [0, 5, 7, 8];
 
 /* ─── Pricing ───────────────────────────────────────────────── */
 export interface PricingTier {

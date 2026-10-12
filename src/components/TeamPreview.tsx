@@ -22,37 +22,31 @@ const teamMembers: TeamMember[] = [
     id: 'member-1',
     name: 'Content Writer',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Content Writer.png',
+    image: '/images/our team/AI Team/Content Writer.jpg',
   },
   {
     id: 'member-2',
     name: 'SEO Expert',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/SEO Expert.png',
+    image: '/images/our team/AI Team/SEO Expert.jpg',
   },
   {
     id: 'member-3',
     name: 'Backend Developer',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Backend Developer.png',
+    image: '/images/our team/AI Team/Backend Developer.jpg',
   },
   {
     id: 'member-4',
     name: 'Frontend Developer',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Frontendd Developer.png',
-  },
-  {
-    id: 'member-5',
-    name: 'UI/UX Designer',
-    role: 'AI Agent',
-    image: '/images/our team/AI Team/UI UX Designer.png',
+    image: '/images/our team/AI Team/Frontendd Developer.jpg',
   },
   {
     id: 'member-6',
     name: 'Graphic Designer',
     role: 'AI Agent',
-    image: '/images/our team/AI Team/Graphic Designer.png',
+    image: '/images/our team/AI Team/Graphic Designer.jpg',
   },
   {
     id: 'member-7',
@@ -63,8 +57,8 @@ const teamMembers: TeamMember[] = [
   {
     id: 'member-8',
     name: 'Ms Fouzia',
-    role: 'Marketing Specialist',
-    image: '/images/our team/Ms Laiqa.png',
+    role: 'Frontend Developer',
+    image: '/images/our team/Ms Fouzia.jpg',
   },
 ];
 
