@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Placeholder lets the build succeed without a key; the POST handler still checks for a real key before sending.
+const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder');
 
 interface ContactFormData {
   name: string;
