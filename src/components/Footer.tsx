@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import BrandLogo from './BrandLogo';
 import { FaTwitter, FaGithub, FaLinkedin, FaDribbble, FaWhatsapp } from 'react-icons/fa';
 
 export default function Footer() {
@@ -16,14 +16,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-16 relative z-10">
             <div className="max-w-xs">
               <Link href="/" className="flex items-center mb-6" aria-label="CodeCraftAI home">
-                <Image
-                  src="/logo/logo.png?v=2"
-                  alt="CodeCraftAI"
-                  width={1774}
-                  height={887}
-                  sizes="80px"
-                  className="h-10 w-auto"
-                />
+                <BrandLogo variant="full" size={88} />
               </Link>
               <p className="text-slate-400 text-base leading-relaxed">
                 Streamline operations, boost productivity, and scale smarter with CodeCraftAI.

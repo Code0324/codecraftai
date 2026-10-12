@@ -10,6 +10,9 @@ const nextConfig = {
         pathname: '/logo/**',
       },
       {
+        pathname: '/brand/**',
+      },
+      {
         pathname: '/chatbot/**',
       },
     ],

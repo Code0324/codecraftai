@@ -24,16 +24,13 @@ export const metadata: Metadata = {
       'Build serious new AI-powered web apps and automation pipelines with CodeCraftAI.',
     type: 'website',
     locale: 'en_US',
+    images: ['/icon-512.png'],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
+    images: ['/icon-512.png'],
     title: 'CodeCraftAI — Build smarter with AI Crafted',
     description: 'AI-first software agency for next-gen businesses.',
-  },
-  icons: {
-    icon: [
-      { url: '/logo/logo.png?v=2', type: 'image/png' },
-    ],
   },
 };
 

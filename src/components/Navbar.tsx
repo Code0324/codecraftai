@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
+import BrandLogo from './BrandLogo';
 import { Menu, X } from 'lucide-react';
 import GlossyButton from './GlossyButton';
 
@@ -31,15 +31,8 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center" aria-label="CodeCraftAI home">
-          <Image
-            src="/logo/logo.png?v=2"
-            alt="CodeCraftAI"
-            width={1774}
-            height={887}
-            priority
-            sizes="(min-width: 1024px) 96px, 80px"
-            className="h-10 lg:h-12 w-auto"
-          />
+          <BrandLogo variant="mark" size={44} priority />
+          <span className="ml-2 hidden sm:inline text-lg font-semibold tracking-tight text-white">CodeCraftAI</span>
         </Link>
 
         <div className="hidden lg:flex items-center gap-8 bg-white/5 px-6 py-2 rounded-full border border-white/5">

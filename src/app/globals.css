@@ -628,3 +628,13 @@ body {
   .btn-primary:hover { transform: none; }
   .btn-ghost:hover { transform: none; }
 }
+
+/* ─── Brand logo: emboss + depth + glow (additive only) ─── */
+.cc-brand-logo-img {
+  filter: url(#cc-emboss) drop-shadow(0 4px 8px rgba(0, 8, 20, 0.45)) drop-shadow(0 0 14px rgba(59, 130, 246, 0.45));
+}
+@media (prefers-color-scheme: light) {
+  .cc-brand-logo-img {
+    filter: url(#cc-emboss) drop-shadow(0 4px 8px rgba(0, 8, 20, 0.35)) drop-shadow(0 0 10px rgba(59, 130, 246, 0.25));
+  }
+}
